@@ -1,6 +1,6 @@
 class Projecao:
     def __init__(self):
-        self.ID: int
+        self.id: int
         self.periodo: str
 
     def gerar_projecao(self):
