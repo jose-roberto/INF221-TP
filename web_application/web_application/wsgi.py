@@ -1,5 +1,5 @@
 """
-WSGI config for Gride_Gride project.
+WSGI config for web_application project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Gride_Gride.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web_application.settings')
 
 application = get_wsgi_application()
