@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gride_dashboard',
+    'gride_dashboard.apps.GrideDashboardConfig',
 ]
 
 MIDDLEWARE = [

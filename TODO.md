@@ -7,5 +7,5 @@
 ## Front-end
 
 ## Back-end
-- [ ] Criar esqueleto do banco de dados [Arthur, José]
+- [X] Criar esqueleto do banco de dados [Arthur, José]
 - [ ] Testar banco de dados
