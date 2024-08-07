@@ -10,3 +10,4 @@ Trabalho prático da disciplina de Engenharia de Software - INF221
 
 ## Desenvolvimento:
 - [Tarefas](TODO.md)
+- [Materiais de apoio](REFs.md)
