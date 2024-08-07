@@ -14,7 +14,7 @@
 ## Back-end
 - [X] Criar esqueleto do banco de dados [Arthur, José]
 - [X] Implementar herança no models.py [Arthur, José]
-- [ ] Criar mecanismo interno de cache para os relatórios
+- [X] Criar mecanismo interno de cache para os relatórios [Arthur, José]
 - [ ] Testar o banco de dados
 - [ ] Fazer código que calcula projeção
 
