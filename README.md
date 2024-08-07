@@ -8,6 +8,7 @@ Trabalho prático da disciplina de Engenharia de Software - INF221
 4. Thiago Zimerer Duarte - 108206
 5. Victor Afonso Teixeira Santos - 108212
 
-## Desenvolvimento:
+## Sobre o projeto:
+- [Documentação]()
 - [Tarefas](TODO.md)
 - [Materiais de apoio](REFs.md)
