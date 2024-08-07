@@ -15,5 +15,5 @@
 - [X] Criar esqueleto do banco de dados [Arthur, José]
 - [X] Implementar herança no models.py [Arthur, José]
 - [X] Criar mecanismo interno de cache para os relatórios [Arthur, José]
-- [ ] Fazer lógica do cálculo de projeção produtiva
+- [X] Fazer lógica básica do cálculo de projeção produtiva [Arthur, José]
 
