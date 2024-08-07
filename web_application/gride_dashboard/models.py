@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Usina(models.Model):
+class Usuario(models.Model):
     cnpj = models.CharField(max_length=14)
     nome = models.CharField(max_length=100)
     email = models.EmailField()
@@ -9,20 +9,20 @@ class Usina(models.Model):
     localizacao = models.CharField(max_length=200)
     telefone = models.CharField(max_length=30)
     
-class DadosIntegridade(models.Model):
-    usina = models.ForeignKey(Usina, on_delete=models.CASCADE)
+class Dados(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        abstract = True
+        
+class DadosIntegridade(Dados):
     integridade_placa = models.FloatField()
     eficiencia_placa = models.FloatField()
     
-class DadosFalhas(models.Model):
-    usina = models.ForeignKey(Usina, on_delete=models.CASCADE)
-    data = models.DateTimeField(auto_now_add=True)
+class DadosFalhas(Dados):
     falha = models.TextField()
     
-class DadosDesempenho(models.Model):
-    usina = models.ForeignKey(Usina, on_delete=models.CASCADE)
-    data = models.DateTimeField(auto_now_add=True)
+class DadosDesempenho(Dados):
     producao_energetica = models.FloatField()
     consumo_energetico = models.FloatField()
     valor_kwh = models.FloatField()
@@ -32,9 +32,27 @@ class DadosDesempenho(models.Model):
     tempo_de_operacao = models.FloatField()
     tempo_de_parada = models.FloatField()
     
+# cache
 class Relatorio(models.Model):
-    usina = models.ForeignKey(Usina, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=11)
-    dados_relatorio = models.TextField()
     data = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        abstract = True
+    
+class RelatorioConsumo(Relatorio):
+    dados_relatorio = models.TextField()
+
+class RelatorioFalhas(Relatorio):
+    dados_relatorio = models.TextField()
+
+class RelatorioIntegridade(Relatorio):
+    dados_relatorio = models.TextField()
+
+class RelatorioProducao(Relatorio):
+    dados_relatorio = models.TextField()
+
+class RelatorioProjecao(Relatorio):
+    dados_relatorio = models.TextField()
     
