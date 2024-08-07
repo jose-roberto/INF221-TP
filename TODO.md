@@ -1,31 +1,11 @@
 # Tarefas
 
-## André
-### Tarefa X (exemplo)
-- [ ] a
-- [ ] b
-- [ ] c
-
-## Arthur
-### Tarefa X (exemplo)
-- [ ] a
-- [ ] b
-- [ ] c
-
-## José
-### Tarefa X (exemplo)
-- [ ] a
-- [ ] b
-- [ ] c
+## Geral
+- [ ] Descobrir como integrar POO e Padrões com Django
+- [ ] Entender como o front-end comunica com o back-end no Django
   
-## Thiago
-### Tarefa X (exemplo)
-- [ ] a
-- [ ] b
-- [ ] c
-  
-## Victor
-### Tarefa X (exemplo)
-- [ ] a
-- [ ] b
-- [ ] c
+## Front-end
+
+## Back-end
+- [ ] Criar esqueleto do banco de dados [Arthur, José]
+- [ ] Testar banco de dados
