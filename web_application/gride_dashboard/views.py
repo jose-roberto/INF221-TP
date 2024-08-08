@@ -8,7 +8,8 @@ from numpy import asarray
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, world. You're at the gride_dashboard index.")
+    #return HttpResponse("Hello, world. You're at the gride_dashboard index.")
+    return render(request,'index.html')
 
 def render_projecao_produtiva(request):
     try:
