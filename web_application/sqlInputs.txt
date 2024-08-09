@@ -1,0 +1,27 @@
+INSERT INTO gride_dashboard_usuario (id, cnpj, nome, email, senha, localizacao, telefone) VALUES
+(1, '12345678000195', 'Tech Innovators Ltda', 'contact@techinnovators.com', 'password123', 'Rua das Inovações, 100, São Paulo, SP', '(11) 4002-8922'),
+(2, '98765432000167', 'Solar Solutions Inc.', 'info@solarsolutions.com', 'securepass456', 'Avenida Solar, 200, Rio de Janeiro, RJ', '(21) 3003-9090'),
+(3, '11223344000189', 'Green Energy Partners', 'support@greenenergypartners.com', 'greentech789', 'Praça da Sustentabilidade, 300, Belo Horizonte, MG', '(31) 9888-7766'),
+(4, '55667788000134', 'EcoFriendly Enterprises', 'contact@ecofriendly.com', 'ecopass012', 'Rua Verde, 400, Curitiba, PR', '(41) 9999-4433'),
+(5, '77889900000156', 'Sustainable Power Co.', 'service@sustainablepower.com', 'powerful123', 'Avenida Energia, 500, Porto Alegre, RS', '(51) 3222-1122');
+
+INSERT INTO gride_dashboard_dados_integridade (id, usuario_id, data, integridade_placa, eficiencia_placa) VALUES
+(1, 1, CURRENT_TIMESTAMP, 94.8, 97.3),
+(2, 2, CURRENT_TIMESTAMP, 92.5, 95.8),
+(3, 3, CURRENT_TIMESTAMP, 96.1, 98.5),
+(4, 4, CURRENT_TIMESTAMP, 91.7, 94.9),
+(5, 5, CURRENT_TIMESTAMP, 93.9, 96.4);
+
+INSERT INTO gride_dashboard_dados_falhas (id, usuario_id, data, falha) VALUES
+(1, 1, CURRENT_TIMESTAMP, 'Overheating detected in inverter.'),
+(2, 2, CURRENT_TIMESTAMP, 'Voltage drop in solar panel array.'),
+(3, 3, CURRENT_TIMESTAMP, 'Battery storage system malfunction.'),
+(4, 4, CURRENT_TIMESTAMP, 'Inverter firmware error.'),
+(5, 5, CURRENT_TIMESTAMP, 'Grid connection instability.');
+
+INSERT INTO gride_dashboard_dados_desempenho (id, usuario_id, data, producao_energetica, consumo_energetico, valor_kwh, lucro, prejuizo, margem, tempo_de_operacao, tempo_de_parada) VALUES
+(1, 1, CURRENT_TIMESTAMP, 1600.2, 1300.4, 0.42, 350.0, 30.0, 320.0, 125.0, 8.0),
+(2, 2, CURRENT_TIMESTAMP, 1750.0, 1450.0, 0.47, 400.0, 60.0, 340.0, 132.0, 12.0),
+(3, 3, CURRENT_TIMESTAMP, 1900.6, 1500.3, 0.50, 450.0, 55.0, 395.0, 140.0, 9.0),
+(4, 4, CURRENT_TIMESTAMP, 1650.8, 1350.7, 0.44, 300.0, 45.0, 255.0, 130.0, 10.0),
+(5, 5, CURRENT_TIMESTAMP, 1850.5, 1550.0, 0.48, 420.0, 65.0, 355.0, 135.0, 11.0);
