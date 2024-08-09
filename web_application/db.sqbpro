@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="db.sqlite3" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2930"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="gride_dashboard_usuario" custom_title="0" dock_id="1" table="4,23:maingride_dashboard_usuario"/><dock_state state="000000ff00000000fd0000000100000002000005ab000003c0fc0100000001fb000000160064006f0063006b00420072006f00770073006500310100000000000005ab0000012400ffffff000002df0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="auth_group" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="40"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="gride_dashboard_cache_relatorio_projecao" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="35"/><column index="3" value="98"/><column index="4" value="35"/><column index="5" value="69"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="gride_dashboard_dados_desempenho" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="9" mode="1"/></sort><column_widths><column index="1" value="35"/><column index="2" value="35"/><column index="3" value="129"/><column index="4" value="127"/><column index="5" value="67"/><column index="6" value="36"/><column index="7" value="54"/><column index="8" value="64"/><column index="9" value="126"/><column index="10" value="113"/><column index="11" value="69"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="gride_dashboard_dados_falhas" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="3" mode="0"/></sort><column_widths><column index="1" value="35"/><column index="2" value="35"/><column index="3" value="36"/><column index="4" value="69"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="gride_dashboard_dados_integridade" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort><column index="0" mode="1"/></sort><column_widths><column index="1" value="35"/><column index="2" value="35"/><column index="3" value="110"/><column index="4" value="98"/><column index="5" value="69"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="gride_dashboard_usuario" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="35"/><column index="2" value="119"/><column index="3" value="191"/><column index="4" value="255"/><column index="5" value="111"/><column index="6" value="300"/><column index="7" value="119"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">-- Inserir novos usuários na tabela gride_dashboard_usuario
+INSERT INTO gride_dashboard_usuario (id, cnpj, nome, email, senha, localizacao, telefone) VALUES
+(9, '78978978900004', 'Energy Innovators', 'contact@energyinnovators.com', 'innovatepass123', 'Rua da Inovação, 900, São Paulo, SP', '(11) 4004-5678'),
+(10, '98798798700005', 'SolarTech Solutions', 'info@solartech.com', 'solartecpass456', 'Avenida Solar, 1000, Rio de Janeiro, RJ', '(21) 3005-6789'),
+(11, '65465465400006', 'EcoPower Enterprises', 'support@ecopower.com', 'ecopowerpass789', 'Praça da Energia, 1100, Belo Horizonte, MG', '(31) 9887-6543');
+
+-- Inserir dados na tabela gride_dashboard_dados_integridade
+INSERT INTO gride_dashboard_dados_integridade (id, usuario_id, data, integridade_placa, eficiencia_placa) VALUES
+(33, 9, CURRENT_TIMESTAMP, 95.0, 97.5),
+(34, 9, CURRENT_TIMESTAMP, 94.7, 97.2),
+(35, 9, CURRENT_TIMESTAMP, 94.5, 97.0),
+(36, 9, CURRENT_TIMESTAMP, 94.3, 96.8),
+(37, 10, CURRENT_TIMESTAMP, 93.0, 95.5),
+(38, 10, CURRENT_TIMESTAMP, 92.8, 95.3),
+(39, 10, CURRENT_TIMESTAMP, 92.5, 95.0),
+(40, 10, CURRENT_TIMESTAMP, 92.3, 94.8),
+(41, 11, CURRENT_TIMESTAMP, 96.0, 98.5),
+(42, 11, CURRENT_TIMESTAMP, 95.8, 98.3),
+(43, 11, CURRENT_TIMESTAMP, 95.5, 98.0),
+(44, 11, CURRENT_TIMESTAMP, 95.3, 97.8);
+
+-- Inserir dados na tabela gride_dashboard_dados_falhas
+INSERT INTO gride_dashboard_dados_falhas (id, usuario_id, data, falha) VALUES
+(33, 9, CURRENT_TIMESTAMP, 'Inverter overheating.'),
+(34, 9, CURRENT_TIMESTAMP, 'Solar panel efficiency drop.'),
+(35, 9, CURRENT_TIMESTAMP, 'Battery charge issue.'),
+(36, 9, CURRENT_TIMESTAMP, 'Inverter software glitch.'),
+(37, 10, CURRENT_TIMESTAMP, 'Grid connection error.'),
+(38, 10, CURRENT_TIMESTAMP, 'Solar panel shading detected.'),
+(39, 10, CURRENT_TIMESTAMP, 'Inverter cooling failure.'),
+(40, 10, CURRENT_TIMESTAMP, 'Battery discharge problem.'),
+(41, 11, CURRENT_TIMESTAMP, 'Inverter power surge.'),
+(42, 11, CURRENT_TIMESTAMP, 'Solar panel wiring fault.'),
+(43, 11, CURRENT_TIMESTAMP, 'Battery temperature high.'),
+(44, 11, CURRENT_TIMESTAMP, 'Inverter communication failure.');
+
+-- Inserir dados na tabela gride_dashboard_dados_desempenho
+INSERT INTO gride_dashboard_dados_desempenho (id, usuario_id, data, producao_energetica, consumo_energetico, valor_kwh, lucro, prejuizo, margem, tempo_de_operacao, tempo_de_parada) VALUES
+(33, 9, CURRENT_TIMESTAMP, 1620.0, 1320.0, 0.46, 370.0, 38.0, 332.0, 129.0, 12.0),
+(34, 9, CURRENT_TIMESTAMP, 1625.0, 1325.0, 0.47, 375.0, 40.0, 335.0, 130.0, 13.0),
+(35, 9, CURRENT_TIMESTAMP, 1630.0, 1330.0, 0.48, 380.0, 42.0, 338.0, 131.0, 14.0),
+(36, 9, CURRENT_TIMESTAMP, 1635.0, 1335.0, 0.49, 385.0, 44.0, 341.0, 132.0, 15.0),
+(37, 10, CURRENT_TIMESTAMP, 1770.0, 1470.0, 0.51, 420.0, 68.0, 352.0, 136.0, 16.0),
+(38, 10, CURRENT_TIMESTAMP, 1775.0, 1475.0, 0.52, 425.0, 70.0, 355.0, 137.0, 17.0),
+(39, 10, CURRENT_TIMESTAMP, 1780.0, 1480.0, 0.53, 430.0, 72.0, 358.0, 138.0, 18.0),
+(40, 10, CURRENT_TIMESTAMP, 1785.0, 1485.0, 0.54, 435.0, 74.0, 361.0, 139.0, 19.0),
+(41, 11, CURRENT_TIMESTAMP, 1920.0, 1520.0, 0.55, 470.0, 58.0, 412.0, 143.0, 20.0),
+(42, 11, CURRENT_TIMESTAMP, 1925.0, 1525.0, 0.56, 475.0, 60.0, 415.0, 144.0, 21.0),
+(43, 11, CURRENT_TIMESTAMP, 1930.0, 1530.0, 0.57, 480.0, 62.0, 418.0, 145.0, 22.0),
+(44, 11, CURRENT_TIMESTAMP, 1935.0, 1535.0, 0.58, 485.0, 64.0, 421.0, 146.0, 23.0);</sql><current_tab id="0"/></tab_sql></sqlb_project>
