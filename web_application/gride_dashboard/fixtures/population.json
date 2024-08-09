@@ -1,0 +1,221 @@
+[
+  {
+    "model": "gride_dashboard.usuario",
+    "pk": 1,
+    "fields": {
+      "cnpj": "12345678000195",
+      "nome": "Tech Innovators Ltda",
+      "email": "contact@techinnovators.com",
+      "senha": "password123",
+      "localizacao": "Rua das Inovações, 100, São Paulo, SP",
+      "telefone": "(11) 4002-8922"
+    }
+  },
+  {
+    "model": "gride_dashboard.usuario",
+    "pk": 2,
+    "fields": {
+      "cnpj": "98765432000167",
+      "nome": "Solar Solutions Inc.",
+      "email": "info@solarsolutions.com",
+      "senha": "securepass456",
+      "localizacao": "Avenida Solar, 200, Rio de Janeiro, RJ",
+      "telefone": "(21) 3003-9090"
+    }
+  },
+  {
+    "model": "gride_dashboard.usuario",
+    "pk": 3,
+    "fields": {
+      "cnpj": "11223344000189",
+      "nome": "Green Energy Partners",
+      "email": "support@greenenergypartners.com",
+      "senha": "greentech789",
+      "localizacao": "Praça da Sustentabilidade, 300, Belo Horizonte, MG",
+      "telefone": "(31) 9888-7766"
+    }
+  },
+  {
+    "model": "gride_dashboard.usuario",
+    "pk": 4,
+    "fields": {
+      "cnpj": "55667788000134",
+      "nome": "EcoFriendly Enterprises",
+      "email": "contact@ecofriendly.com",
+      "senha": "ecopass012",
+      "localizacao": "Rua Verde, 400, Curitiba, PR",
+      "telefone": "(41) 9999-4433"
+    }
+  },
+  {
+    "model": "gride_dashboard.usuario",
+    "pk": 5,
+    "fields": {
+      "cnpj": "77889900000156",
+      "nome": "Sustainable Power Co.",
+      "email": "service@sustainablepower.com",
+      "senha": "powerful123",
+      "localizacao": "Avenida Energia, 500, Porto Alegre, RS",
+      "telefone": "(51) 3222-1122"
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_integridade",
+    "pk": 1,
+    "fields": {
+      "usuario": 1,
+      "integridade_placa": 94.8,
+      "eficiencia_placa": 97.3
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_integridade",
+    "pk": 2,
+    "fields": {
+      "usuario": 2,
+      "integridade_placa": 92.5,
+      "eficiencia_placa": 95.8
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_integridade",
+    "pk": 3,
+    "fields": {
+      "usuario": 3,
+      "integridade_placa": 96.1,
+      "eficiencia_placa": 98.5
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_integridade",
+    "pk": 4,
+    "fields": {
+      "usuario": 4,
+      "integridade_placa": 91.7,
+      "eficiencia_placa": 94.9
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_integridade",
+    "pk": 5,
+    "fields": {
+      "usuario": 5,
+      "integridade_placa": 93.9,
+      "eficiencia_placa": 96.4
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_falhas",
+    "pk": 1,
+    "fields": {
+      "usuario": 1,
+      "falha": "Overheating detected in inverter."
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_falhas",
+    "pk": 2,
+    "fields": {
+      "usuario": 2,
+      "falha": "Voltage drop in solar panel array."
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_falhas",
+    "pk": 3,
+    "fields": {
+      "usuario": 3,
+      "falha": "Battery storage system malfunction."
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_falhas",
+    "pk": 4,
+    "fields": {
+      "usuario": 4,
+      "falha": "Inverter firmware error."
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_falhas",
+    "pk": 5,
+    "fields": {
+      "usuario": 5,
+      "falha": "Grid connection instability."
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_desempenho",
+    "pk": 1,
+    "fields": {
+      "usuario": 1,
+      "producao_energetica": 1600.2,
+      "consumo_energetico": 1300.4,
+      "valor_kwh": 0.42,
+      "lucro": 350.0,
+      "prejuizo": 30.0,
+      "margem": 320.0,
+      "tempo_de_operacao": 125.0,
+      "tempo_de_parada": 8.0
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_desempenho",
+    "pk": 2,
+    "fields": {
+      "usuario": 2,
+      "producao_energetica": 1750.0,
+      "consumo_energetico": 1450.0,
+      "valor_kwh": 0.47,
+      "lucro": 400.0,
+      "prejuizo": 60.0,
+      "margem": 340.0,
+      "tempo_de_operacao": 132.0,
+      "tempo_de_parada": 12.0
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_desempenho",
+    "pk": 3,
+    "fields": {
+      "usuario": 3,
+      "producao_energetica": 1900.6,
+      "consumo_energetico": 1500.3,
+      "valor_kwh": 0.50,
+      "lucro": 450.0,
+      "prejuizo": 55.0,
+      "margem": 395.0,
+      "tempo_de_operacao": 140.0,
+      "tempo_de_parada": 9.0
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_desempenho",
+    "pk": 4,
+    "fields": {
+      "usuario": 4,
+      "producao_energetica": 1650.8,
+      "consumo_energetico": 1350.7,
+      "valor_kwh": 0.44,
+      "lucro": 300.0,
+      "prejuizo": 45.0,
+      "margem": 255.0,
+      "tempo_de_operacao": 130.0,
+      "tempo_de_parada": 10.0
+    }
+  },
+  {
+    "model": "gride_dashboard.dados_desempenho",
+    "fields": {
+      "usuario": 5,
+      "producao_energetica": 1850.5,
+      "consumo_energetico": 1550.0,
+      "valor_kwh": 0.48,
+      "lucro": 420.0,
+      "prejuizo": 65.0,
+      "margem": 355.0,
+      "tempo_de_operacao": 135.0,
+      "tempo_de_parada": 11.0
+    }
+  }
+]
