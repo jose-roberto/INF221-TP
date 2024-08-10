@@ -39,6 +39,44 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# Homepage
+--------------------------------------------------------------*/
+#home {
+  background-image: url('../img/usines.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+@media (max-width: 1199px) {
+  #home {
+    padding: 20px;
+  }
+}
+
+.nav-login a {
+  display: inline-block;
+  padding: 5px 14px;
+  margin: 5px 15px 5px 0px;
+  text-decoration: none;
+  color: #012970;
+  background-color: #ffffff;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid #012970;
+}
+
+.button-lr:hover {
+  background-color: #e3eaf9;
+  color: #4154f1;
+  text-decoration: none;
+}
+
+/*--------------------------------------------------------------
 # Main
 --------------------------------------------------------------*/
 #main {

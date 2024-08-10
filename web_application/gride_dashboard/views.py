@@ -7,24 +7,28 @@ from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produ
 from numpy import asarray
 
 # Create your views here.
+def homepage(request):
+    return render(request,'homepage.html')
+
+def login(request):
+    return render(request,'pages-login.html')
+
+def register(request):
+    return render(request,'pages-register.html')
+
 def index(request):
-    #return HttpResponse("Hello, world. You're at the gride_dashboard index.")
     return render(request,'index.html')
 
 def consumption(request):
-    #return HttpResponse("Hello, world. You're at the gride_dashboard index.")
     return render(request,'report-consumption.html')
 
 def integridy(request):
-    #return HttpResponse("Hello, world. You're at the gride_dashboard index.")
     return render(request,'report-integridy.html')
 
 def failure(request):
-    #return HttpResponse("Hello, world. You're at the gride_dashboard index.")
     return render(request,'report-failure.html')
 
 def production(request):
-    #return HttpResponse("Hello, world. You're at the gride_dashboard index.")
     return render(request,'report-production.html')
 
 def render_projecao_produtiva(request):
