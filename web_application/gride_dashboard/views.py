@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produtiva
 
@@ -14,7 +15,24 @@ def login(request):
     return render(request,'pages-login.html')
 
 def register(request):
-    return render(request,'pages-register.html')
+    if request.method == "GET":
+        return render(request,'pages-register.html')
+    else:
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user_verification = User.objects.filter(username=username).first()
+        
+        if user_verification:
+            return HttpResponse(f"Usuário {username} já existe")
+        
+        new_user = User.objects.create_user(username=username, email=email, password=password, first_name=name)
+        new_user.save()
+        
+        return render(request,'index.html')
+        
 
 def index(request):
     return render(request,'index.html')

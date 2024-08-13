@@ -65,7 +65,7 @@
                     <p class="text-center small">Insira suas informações para criar a conta</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" novalidate action="{% url 'pages-register' %}" method="POST">{% csrf_token %}
                     <div class="col-12">
                       <label for="yourName" class="form-label">Nome da empresa</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
