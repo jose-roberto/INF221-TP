@@ -17,13 +17,14 @@
 - [ ] Adicionar placeholders em Login e Register
 
 ## Back-end
-- [X] Criar esqueleto do banco de dados [Arthur, José]
-- [X] Implementar herança no models.py [Arthur, José]
-- [X] Criar mecanismo interno de cache para os relatórios [Arthur, José]
-- [X] Fazer lógica básica do cálculo de projeção produtiva [Arthur, José]
+- [X] Criar esqueleto do banco de dados
+- [X] Implementar herança no models.py
+- [X] Criar mecanismo interno de cache para os relatórios
+- [X] Fazer lógica básica do cálculo de projeção produtiva
 - [X] Integrar o cadastro
 - [X] Salvar cadastro no banco de dados
 - [X] Integrar o login
+- [X] Realizar logout
 - [ ] Integrar relatórios
 - [ ] Geração de pdf's
 - [ ] Adicionar SELECT no cache seguindo o padrão de projeto Proxy

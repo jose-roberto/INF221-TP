@@ -4,7 +4,9 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 from .models import usuario
 
@@ -57,7 +59,11 @@ def login(request):
             return index(request)
        
         return HttpResponse("Usuário ou senha inválidos")
-        
+    
+def logout(request):
+    django_logout(request)
+
+    return redirect('homepage')    
 
 def consumption(request):
     return render(request,'report-consumption.html')
