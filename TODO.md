@@ -15,8 +15,8 @@
 - [X] Adicionar placeholders em Login e Register
 - [X] Adicionar botão para logout
 - [X] Inserir atributos ausentes na tela de cadastro
-- [ ] Remover '.html' das urls (prática ruim)
 - [x] Trocar 'homepage' por 'index' e vice-versa
+- [ ] Remover '.html' das urls (prática ruim)
 - [ ] Exibir imagem e colocar texto na página inicial
 
 ## Back-end
@@ -28,7 +28,9 @@
 - [X] Salvar cadastro no banco de dados
 - [X] Integrar o login
 - [X] Implementar lógica do logout
-- [ ] Associar back-end do logout com o botão da interface
+- [X] Associar back-end do logout com o botão da interface
+- [X] Atualizar inserção de usuário no banco de dados
+- [X] Corrigir 'Proibido' ao atualizar página index
 - [ ] Integrar Perfil
 - [ ] Integrar Editar Perfil
 - [ ] Integrar Relatório de Consumo
@@ -40,4 +42,4 @@
 - [ ] Implementar funcionalidade de gerar pdf
 - [ ] Aprimorar o cálculo da projeção produtiva
 - [ ] Implementar funcionalidade de notificações
-- [ ] Corrigir 'Proibido' ao atualizar página index
+

@@ -30,6 +30,8 @@ def register(request):
         email = request.POST.get('email')
         username = request.POST.get('username')
         password = request.POST.get('password')
+        phone = request.POST.get('phone')
+        location = request.POST.get('location')
         
         user_verification = User.objects.filter(username=username).first()
         
@@ -39,10 +41,10 @@ def register(request):
         new_user = User.objects.create_user(username=username, email=email, password=password, first_name=name)
         new_user.save()
         
-        new_usuario = usuario(cnpj=username, nome=name, email=email, senha=password, localizacao='', telefone='')
+        new_usuario = usuario(cnpj=username, nome=name, email=email, senha=password, localizacao=location, telefone=phone)
         new_usuario.save()
         
-        return index(request)
+        return redirect("index.html")
 
 def login(request):
     if request.method == "GET":
@@ -56,7 +58,7 @@ def login(request):
         if user is not None:
             django_login(request, user)
             
-            return homepage(request)
+            return redirect('homepage.html')
        
         return HttpResponse("Usuário ou senha inválidos")
     
