@@ -13,7 +13,7 @@
   
 ## Front-end
 - [X] Adicionar placeholders em Login e Register
-- [ ] Adicionar botão para logout
+- [X] Adicionar botão para logout
 - [ ] Inserir atributos ausentes na tela de cadastro
 - [ ] Remover '.html' das urls (prática ruim)
 - [ ] Trocar 'homepage' por 'index' e vice-versa
@@ -39,3 +39,4 @@
 - [ ] Implementar funcionalidade de gerar pdf
 - [ ] Aprimorar o cálculo da projeção produtiva
 - [ ] Implementar funcionalidade de notificações
+- [ ] Corrigir 'Proibido' ao atualizar página index
