@@ -15,10 +15,10 @@ from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produ
 from numpy import asarray
 
 # Create your views here.
+@login_required(login_url='/pages-login.html')
 def homepage(request):
     return render(request,'homepage.html')
 
-@login_required(login_url='/pages-login.html')
 def index(request):
     return render(request,'index.html')
 
@@ -56,7 +56,7 @@ def login(request):
         if user is not None:
             django_login(request, user)
             
-            return index(request)
+            return homepage(request)
        
         return HttpResponse("Usuário ou senha inválidos")
     

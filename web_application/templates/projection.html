@@ -46,7 +46,7 @@
 
   <div class="d-flex align-items-center justify-content-between">
     <i class="bi bi-list toggle-sidebar-btn"></i>
-    <a href="index.html" class="logo d-flex align-items-center">
+    <a href="homepage.html" class="logo d-flex align-items-center">
       <img src="{% static 'assets/img/logo.png'%}" alt="">
       <span class="d-none d-lg-block">Gride&Gride</span>
     </a>
@@ -148,7 +148,7 @@
       <li class="nav-heading">Usina</li>
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="homepage.html">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -201,12 +201,12 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-contact.html">
           <i class="bi bi-envelope"></i>
-          <span>Contact</span>
+          <span>Contato</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+        <a class="nav-link collapsed" href="{% url 'logout' %}">
           <i class="bi bi-box-arrow-right"></i>
           <span>Sair</span>
         </a>
@@ -221,7 +221,7 @@
       <h1>Gerando Projeção Produtiva</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="homepage.html">Home</a></li>
           <li class="breadcrumb-item">Projeção</li>
         </ol>
       </nav>
@@ -264,14 +264,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      &copy; Copyright <strong><span>Gride&Gride</span></strong>. All Rights Reserved
     </div>
   </footer><!-- End Footer -->
 

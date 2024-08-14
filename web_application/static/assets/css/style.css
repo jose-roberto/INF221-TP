@@ -39,9 +39,9 @@ h6 {
 }
 
 /*--------------------------------------------------------------
-# Homepage
+# Base-page
 --------------------------------------------------------------*/
-#home {
+#base-page {
   background-image: url('../img/usines.png');
   background-size: cover;
   background-position: center;
@@ -50,7 +50,7 @@ h6 {
 }
 
 @media (max-width: 1199px) {
-  #home {
+  #base-page {
     padding: 20px;
   }
 }
