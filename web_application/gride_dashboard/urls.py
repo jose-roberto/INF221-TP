@@ -12,5 +12,7 @@ urlpatterns = [
     path('report-failure.html', views.failure, name='report-failure'),
     path('report-integridy.html', views.integridy, name='report-integridy'),
     path('report-production.html', views.production, name='report-production'),
+    path('projection.html', views.projection, name='projection'),
+    path('users-profile.html', views.profile, name='profile'),    
     # path('projecao_produtiva/', views.projecao_produtiva, name='projecao_produtiva'),
 ]

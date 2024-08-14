@@ -135,109 +135,77 @@
         </ul><!-- End Notification Dropdown Items -->
 
       </li><!-- End Notification Nav -->
-
-      <li class="nav-item dropdown pe-3">
-
-        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="{% static 'assets/img/profile-img.jpg'%}" alt="Profile" class="rounded-circle">
-          <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-        </a><!-- End Profile Iamge Icon -->
-
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-          <li class="dropdown-header">
-            <h6>Kevin Anderson</h6>
-            <span>Web Designer</span>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-              <i class="bi bi-person"></i>
-              <span>My Profile</span>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-              <i class="bi bi-gear"></i>
-              <span>Account Settings</span>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-              <i class="bi bi-question-circle"></i>
-              <span>Need Help?</span>
-            </a>
-          </li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="#">
-              <i class="bi bi-box-arrow-right"></i>
-              <span>Sign Out</span>
-            </a>
-          </li>
-
-        </ul><!-- End Profile Dropdown Items -->
-      </li><!-- End Profile Nav -->
-
     </ul>
   </nav><!-- End Icons Navigation -->
 
 </header><!-- End Header -->
 
-<!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
 
-  <ul class="sidebar-nav" id="sidebar-nav">
+    <ul class="sidebar-nav" id="sidebar-nav">
 
-    <li class="nav-item">
-      <a class="nav-link " href="index.html">
-        <i class="bi bi-grid"></i>
-        <span>Dashboard</span>
-      </a>
-    </li><!-- End Dashboard Nav -->
+      <li class="nav-heading">Usina</li>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-layout-text-sidebar-reverse"></i><span>Relatórios</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="report-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="report-consumption.html">
-            <i class="bi bi-circle"></i><span>Relatório de Consumo</span>
-          </a>
-        </li>
-        <li>
-          <a href="report-production.html">
-            <i class="bi bi-circle"></i><span>Relatório de Produção</span>
-          </a>
-        </li>
-        <li>
-          <a href="report-integridy.html">
-            <i class="bi bi-circle"></i><span>Relatório de Integridade</span>
-          </a>
-        </li>
-        <li>
-          <a href="report-failure.html">
-            <i class="bi bi-circle"></i><span>Relatório de Falhas</span>
-          </a>
-        </li>
-      </ul>
-    </li><!-- End Reports Nav -->
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
 
-  </ul>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-sidebar-reverse"></i><span>Relatórios</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="report-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="report-consumption.html">
+              <i class="bi bi-circle"></i><span>Relatório de Consumo</span>
+            </a>
+          </li>
+          <li>
+            <a href="report-production.html">
+              <i class="bi bi-circle"></i><span>Relatório de Produção</span>
+            </a>
+          </li>
+          <li>
+            <a href="report-integridy.html">
+              <i class="bi bi-circle"></i><span>Relatório de Integridade</span>
+            </a>
+          </li>
+          <li>
+            <a href="report-failure.html">
+              <i class="bi bi-circle"></i><span>Relatório de Falhas</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Reports Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link " href="projection.html">
+          <i class="bi bi-grid"></i>
+          <span>Projeção Produtiva</span>
+        </a>
+      </li><!-- End Projection Nav -->
+
+      <li class="nav-heading">Usuário</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Perfil</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+    </ul>
+
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">

@@ -77,6 +77,12 @@ def failure(request):
 def production(request):
     return render(request,'report-production.html')
 
+def projection(request):
+    return render(request,'projection.html')
+
+def profile(request):
+    return render(request, 'users-profile.html')
+
 def render_projecao_produtiva(request):
     try:
         response = projecao_produtiva(request)
