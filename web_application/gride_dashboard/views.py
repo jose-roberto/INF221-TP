@@ -83,6 +83,9 @@ def projection(request):
 def profile(request):
     return render(request, 'users-profile.html')
 
+def contact(request):
+    return render(request, 'pages-contact.html')
+
 def render_projecao_produtiva(request):
     try:
         response = projecao_produtiva(request)

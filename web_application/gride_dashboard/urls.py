@@ -14,5 +14,6 @@ urlpatterns = [
     path('report-production.html', views.production, name='report-production'),
     path('projection.html', views.projection, name='projection'),
     path('users-profile.html', views.profile, name='profile'),    
+    path('pages-contact.html', views.contact, name='pages-contact'),    
     # path('projecao_produtiva/', views.projecao_produtiva, name='projecao_produtiva'),
 ]
