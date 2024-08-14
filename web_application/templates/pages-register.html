@@ -68,27 +68,27 @@
                   <form class="row g-3 needs-validation" novalidate action="{% url 'pages-register' %}" method="POST">{% csrf_token %}
                     <div class="col-12">
                       <label for="yourName" class="form-label">Nome da empresa</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
+                      <input type="text" name="name" class="form-control" id="yourName" placeholder="Insira o nome da empresa." required>
                       <div class="invalid-feedback">Por favor insira o nome.</div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Email da empresa</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <input type="email" name="email" class="form-control" id="yourEmail" placeholder="nome@dominio.com" required>
                       <div class="invalid-feedback">Por favor insira um Email válido.</div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">CNPJ</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="username" class="form-control" id="yourUsername" placeholder="00.000.000/0000-00" required>
                         <div class="invalid-feedback">Por favor informe o CNPJ.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Senha</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Insira sua senha." required>
                       <div class="invalid-feedback">Por favor insira uma senha</div>
                     </div>
 
