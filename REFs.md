@@ -4,3 +4,5 @@
 2. [Como Sair do Zero em Django no Python](https://www.youtube.com/watch?v=DNGI5aD9MJs)
 3. [Django documentation](https://www.djangoproject.com/)
 4. [Django Bootstrap Dashboard](https://www.youtube.com/watch?v=lp-ICNlSafM)
+5. [DJANGO AUTH](https://www.youtube.com/watch?v=gdhiA6wObw0)
+6. [Banco de dados e admin, min: 50:43](https://www.youtube.com/watch?v=YW113aC8TII&list=PL3gEA6Xsr_el-1m_ew_kwPVGgDiG1nwY-&index=18)
