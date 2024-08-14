@@ -12,10 +12,11 @@
 1. Provavelmente os padrões de projeto serão implementados a partir da criação de um arquivo.py específico para cada um, contendo suas respectivas funcionalidades
   
 ## Front-end
-- [ ] Página para complementar cadastro (adicionar informações restantes)
-- [ ] Trocar 'homepage' por 'index' e vice-versa
+- [X] Adicionar placeholders em Login e Register
+- [ ] Adicionar botão para logout
+- [ ] Inserir atributos ausentes na tela de cadastro
 - [ ] Remover '.html' das urls (prática ruim)
-- [ ] Adicionar placeholders em Login e Register
+- [ ] Trocar 'homepage' por 'index' e vice-versa
 
 ## Back-end
 - [X] Criar esqueleto do banco de dados
@@ -25,9 +26,16 @@
 - [X] Integrar o cadastro
 - [X] Salvar cadastro no banco de dados
 - [X] Integrar o login
-- [X] Realizar logout
-- [ ] Integrar relatórios
-- [ ] Geração de pdf's
-- [ ] Adicionar SELECT no cache seguindo o padrão de projeto Proxy
+- [X] Implementar lógica do logout
+- [ ] Associar back-end do logout com o botão da interface
+- [ ] Integrar Perfil
+- [ ] Integrar Editar Perfil
+- [ ] Integrar Relatório de Consumo
+- [ ] Integrar Relatório de Produção
+- [ ] Integrar Relatório de Integridade
+- [ ] Integrar Relatório de Falhas
+- [ ] Integrar Projeção Produtiva
+- [ ] Implementar cache para os relatórios
+- [ ] Implementar funcionalidade de gerar pdf
 - [ ] Aprimorar o cálculo da projeção produtiva
-
+- [ ] Implementar funcionalidade de notificações
