@@ -1,4 +1,5 @@
--- Inserir empresas na tabela gride_dashboard_usuario
+ATENÇÃO AO USAR ESTE CÓDIGO PARA USERS
+-- Inserir empresas na tabela gride_dashboard_usuario 
 INSERT INTO gride_dashboard_usuario (id, cnpj, nome, email, senha, localizacao, telefone) VALUES
 (1, '12345678000195', 'Tech Innovators Ltda', 'contact@techinnovators.com', 'password123', 'Rua das Inovações, 100, São Paulo, SP', '(11) 4002-8922'),
 (2, '98765432000167', 'Solar Solutions Inc.', 'info@solarsolutions.com', 'securepass456', 'Avenida Solar, 200, Rio de Janeiro, RJ', '(21) 3003-9090'),
