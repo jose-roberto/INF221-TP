@@ -22,8 +22,8 @@
 - [X] Criar mecanismo interno de cache para os relatórios [Arthur, José]
 - [X] Fazer lógica básica do cálculo de projeção produtiva [Arthur, José]
 - [X] Integrar o cadastro
-- [ ] Salvar cadastro no banco de dados
-- [ ] Integrar o login
+- [X] Salvar cadastro no banco de dados
+- [X] Integrar o login
 - [ ] Integrar relatórios
 - [ ] Geração de pdf's
 - [ ] Adicionar SELECT no cache seguindo o padrão de projeto Proxy

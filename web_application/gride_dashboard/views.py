@@ -2,6 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as django_login
+from django.contrib.auth.decorators import login_required
+
+from .models import usuario
 
 from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produtiva
 
@@ -11,8 +16,9 @@ from numpy import asarray
 def homepage(request):
     return render(request,'homepage.html')
 
-def login(request):
-    return render(request,'pages-login.html')
+@login_required(login_url='/pages-login.html')
+def index(request):
+    return render(request,'index.html')
 
 def register(request):
     if request.method == "GET":
@@ -31,11 +37,27 @@ def register(request):
         new_user = User.objects.create_user(username=username, email=email, password=password, first_name=name)
         new_user.save()
         
-        return render(request,'index.html')
+        new_usuario = usuario(cnpj=username, nome=name, email=email, senha=password, localizacao='', telefone='')
+        new_usuario.save()
         
+        return index(request)
 
-def index(request):
-    return render(request,'index.html')
+def login(request):
+    if request.method == "GET":
+        return render(request,'pages-login.html')
+    else:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            django_login(request, user)
+            
+            return index(request)
+       
+        return HttpResponse("Usuário ou senha inválidos")
+        
 
 def consumption(request):
     return render(request,'report-consumption.html')
