@@ -12,6 +12,7 @@
 1. Provavelmente os padrões de projeto serão implementados a partir da criação de um arquivo.py específico para cada um, contendo suas respectivas funcionalidades
   
 ## Front-end
+- [ ] Página para complementar cadastro (adicionar informações restantes)
 - [ ] Trocar 'homepage' por 'index' e vice-versa
 - [ ] Remover '.html' das urls (prática ruim)
 - [ ] Adicionar placeholders em Login e Register
