@@ -12,6 +12,8 @@
 1. Provavelmente os padrões de projeto serão implementados a partir da criação de um arquivo.py específico para cada um, contendo suas respectivas funcionalidades
   
 ## Front-end
+- [ ] Trocar 'homepage' por 'index' e vice-versa
+- [ ] Remover '.html' das urls (prática ruim)
 - [ ] Adicionar placeholders em Login e Register
 
 ## Back-end
@@ -19,7 +21,8 @@
 - [X] Implementar herança no models.py [Arthur, José]
 - [X] Criar mecanismo interno de cache para os relatórios [Arthur, José]
 - [X] Fazer lógica básica do cálculo de projeção produtiva [Arthur, José]
-- [ ] Integrar o cadastro
+- [X] Integrar o cadastro
+- [ ] Salvar cadastro no banco de dados
 - [ ] Integrar o login
 - [ ] Integrar relatórios
 - [ ] Geração de pdf's
