@@ -65,7 +65,7 @@ def login(request):
 def logout(request):
     django_logout(request)
 
-    return redirect('homepage')
+    return redirect('index')
 
 @login_required
 def read_user(request):
