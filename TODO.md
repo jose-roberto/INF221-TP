@@ -31,7 +31,7 @@
 - [X] Associar back-end do logout com o botão da interface
 - [X] Atualizar inserção de usuário no banco de dados
 - [X] Corrigir 'Proibido' ao atualizar página index
-- [ ] Integrar Perfil
+- [X] Integrar Visualizar Perfil
 - [ ] Integrar Editar Perfil
 - [ ] Integrar Relatório de Consumo
 - [ ] Integrar Relatório de Produção

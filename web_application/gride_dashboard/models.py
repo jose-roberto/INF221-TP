@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class usuario(models.Model):
+class Usuario(models.Model):
     cnpj = models.CharField(max_length=14)
     nome = models.CharField(max_length=100)
     email = models.EmailField()
@@ -9,20 +9,20 @@ class usuario(models.Model):
     localizacao = models.CharField(max_length=200)
     telefone = models.CharField(max_length=30)
     
-class dados(models.Model):
-    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+class Dados(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
     class Meta:
         abstract = True
         
-class dados_integridade(dados):
+class DadosIntegridade(Dados):
     integridade_placa = models.FloatField()
     eficiencia_placa = models.FloatField()
     
-class dados_falhas(dados):
+class DadosFalhas(Dados):
     falha = models.TextField()
     
-class dados_desempenho(dados):
+class DadosDesempenho(Dados):
     producao_energetica = models.FloatField()
     consumo_energetico = models.FloatField()
     valor_kwh = models.FloatField()
@@ -33,26 +33,26 @@ class dados_desempenho(dados):
     tempo_de_parada = models.FloatField()
     
 # cache
-class cache_relatorio(models.Model):
-    usuario = models.ForeignKey(usuario, on_delete=models.CASCADE)
+class CacheRelatorio(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=11)
     data = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         abstract = True
     
-class cache_relatorio_consumo(cache_relatorio):
+class CacheRelatorioConsumo(CacheRelatorio):
     dados_relatorio = models.TextField()
 
-class cache_relatorio_falhas(cache_relatorio):
+class CacheRelatorioFalhas(CacheRelatorio):
     dados_relatorio = models.TextField()
 
-class cache_relatorio_integridade(cache_relatorio):
+class CacheRelatorioIntegridade(CacheRelatorio):
     dados_relatorio = models.TextField()
 
-class cache_relatorio_producao(cache_relatorio):
+class CacheRelatorioProducao(CacheRelatorio):
     dados_relatorio = models.TextField()
 
-class cache_relatorio_projecao(cache_relatorio):
+class CacheRelatorioProjecao(CacheRelatorio):
     dados_relatorio = models.TextField()
     

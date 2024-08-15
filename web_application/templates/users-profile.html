@@ -192,7 +192,7 @@
         <li class="nav-heading">Usuário</li>
   
         <li class="nav-item">
-          <a class="nav-link collapsed" href="users-profile.html">
+          <a class="nav-link collapsed" href="{% url 'read_user' %}">
             <i class="bi bi-person"></i>
             <span>Perfil</span>
           </a>
@@ -249,69 +249,69 @@
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
                   <h5 class="card-title">Informações do  Perfil</h5>
-
+                 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label ">Empresa</div>
-                    <div class="col-lg-9 col-md-8">x</div>
+                    <div class="col-lg-9 col-md-8" name="name">{{ name }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">CNPJ</div>
-                    <div class="col-lg-9 col-md-8">x</div>
+                    <div class="col-lg-9 col-md-8" name="username">{{ username }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">x@example.com</div>
+                    <div class="col-lg-9 col-md-8" name="email">{{ email }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Telefone</div>
-                    <div class="col-lg-9 col-md-8">xxxx-xxxx</div>
+                    <div class="col-lg-9 col-md-8" name="phone">{{ phone }}</div>
                   </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Localização</div>
-                    <div class="col-lg-9 col-md-8">x</div>
+                    <div class="col-lg-9 col-md-8" name="location">{{ location }}</div>
                   </div>
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form>
+                  <form action="{% url 'update_user' %}" method="POST">{% csrf_token %}
                     <div class="row mb-3">
                       <label for="empresa" class="col-md-4 col-lg-3 col-form-label">Empresa</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="empresa" type="text" class="form-control" id="empresa" value="y">
+                        <input name="name" type="text" class="form-control" id="empresa">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="CNPJ" class="col-md-4 col-lg-3 col-form-label">CNPJ</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="CNPJ" type="text" class="form-control" id="CNPJ" value ="y"></input>
+                        <input name="username" type="text" class="form-control" id="CNPJ" value ="{{ username }}"></input>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="email" type="text" class="form-control" id="email" value="y">
+                        <input name="email" type="text" class="form-control" id="email" value="{{ email }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="email" class="col-md-4 col-lg-3 col-form-label">Telefone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="telefone" type="text" class="form-control" id="telefone" value="yyyy-yyyy">
+                        <input name="phone" type="text" class="form-control" id="telefone" value="{{ phone }}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="localização" class="col-md-4 col-lg-3 col-form-label">Localização</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="localização" type="text" class="form-control" id="localização" value="y">
+                        <input name="location" type="text" class="form-control" id="localização" value="{{ location }}">
                       </div>
                     </div>
 

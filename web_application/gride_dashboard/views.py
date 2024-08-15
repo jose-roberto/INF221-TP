@@ -8,7 +8,7 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
-from .models import usuario
+from .models import Usuario
 
 from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produtiva
 
@@ -41,8 +41,8 @@ def register(request):
         new_user = User.objects.create_user(username=username, email=email, password=password, first_name=name)
         new_user.save()
         
-        new_usuario = usuario(cnpj=username, nome=name, email=email, senha=password, localizacao=location, telefone=phone)
-        new_usuario.save()
+        usuario = Usuario(cnpj=username, nome=name, email=email, senha=password, localizacao=location, telefone=phone)
+        usuario.save()
         
         return redirect("index.html")
 
@@ -65,8 +65,38 @@ def login(request):
 def logout(request):
     django_logout(request)
 
-    return redirect('homepage')    
+    return redirect('homepage')
 
+@login_required
+def read_user(request):
+    user = request.user
+    usuario = Usuario.objects.filter(cnpj=user.username)
+   
+    context = {
+        'name': usuario[0].nome,
+        'username': usuario[0].cnpj,
+        'email': usuario[0].email,
+        'phone': usuario[0].telefone,
+        'location': usuario[0].localizacao
+    }
+    
+    return render(request, 'users-profile.html', context)
+
+@login_required
+def update_user(request):
+    if request.method == "POST":
+        user = request.user
+        usuario = Usuario.objects.filter(cnpj=user.username)
+        
+        usuario[0].nome = request.POST.get('name')
+        usuario[0].email = request.POST.get('email')
+        usuario[0].telefone = request.POST.get('phone')
+        usuario[0].localizacao = request.POST.get('location')
+        
+        usuario[0].save()
+        
+        return redirect('read_user')
+ 
 def consumption(request):
     return render(request,'report-consumption.html')
 
