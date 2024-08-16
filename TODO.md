@@ -17,7 +17,7 @@
 - [X] Inserir atributos ausentes na tela de cadastro
 - [x] Trocar 'homepage' por 'index' e vice-versa
 - [ ] Remover '.html' das urls (prática ruim)
-- [ ] Exibir imagem e colocar texto na página inicial
+- [x] Exibir imagem e colocar texto na página inicial
 
 ## Back-end
 - [X] Criar esqueleto do banco de dados
