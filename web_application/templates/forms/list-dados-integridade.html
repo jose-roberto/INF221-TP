@@ -1,0 +1,30 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'create-dados-integridade' %}" class="btn btn-primary">Criar</a>
+
+<table> 
+    <tr> 
+        <th>Usuario</th> 
+        <th>Data</th> 
+        <th>IntegridadePlaca</th> 
+        <th>EficienciaPlaca</th> 
+        <th>Opcoes</th>
+    </tr> 
+    {% for dado in object_list %} 
+        <tr> 
+            <td>{{ dado.usuario }}</td> 
+            <td>{{ dado.data }}</td> 
+            <td>{{ dado.integridade_placa }}</td> 
+            <td>{{ dado.eficiencia_placa }}</td> 
+            <td>
+                <a href="{% url 'update-dados-integridade' dado.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'delete-dados-integridade' dado.pk %}" class="btn btn-danger">Excluir</a>
+            </td>
+        </tr> 
+    {% empty %} 
+        <p>Nao tem :)</p>
+    {% endfor %} 
+</table>
+{% endblock %}

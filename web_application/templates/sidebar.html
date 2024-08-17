@@ -5,7 +5,7 @@
         <li class="nav-heading">Usina</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="homepage.html">
+            <a class="nav-link collapsed" href="{% url 'homepage' %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
@@ -18,22 +18,22 @@
             </a>
             <ul id="report-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="report-consumption.html">
+                    <a href="{% url 'report-consumption' %}">
                         <i class="bi bi-circle"></i><span>Relatório de Consumo</span>
                     </a>
                 </li>
                 <li>
-                    <a href="report-production.html">
+                    <a href="{% url 'report-production' %}">
                         <i class="bi bi-circle"></i><span>Relatório de Produção</span>
                     </a>
                 </li>
                 <li>
-                    <a href="report-integridy.html">
+                    <a href="{% url 'report-integridy' %}">
                         <i class="bi bi-circle"></i><span>Relatório de Integridade</span>
                     </a>
                 </li>
                 <li>
-                    <a href="report-failure.html">
+                    <a href="{% url 'report-failure' %}">
                         <i class="bi bi-circle"></i><span>Relatório de Falhas</span>
                     </a>
                 </li>
@@ -41,7 +41,7 @@
         </li><!-- End Reports Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="projection.html">
+            <a class="nav-link collapsed" href="{% url 'projection' %}">
                 <i class="bi bi-grid"></i>
                 <span>Projeção Produtiva</span>
             </a>
@@ -57,7 +57,7 @@
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-contact.html">
+            <a class="nav-link collapsed" href="{% url 'pages-contact' %}">
                 <i class="bi bi-envelope"></i>
                 <span>Contato</span>
             </a>

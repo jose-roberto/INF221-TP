@@ -1,0 +1,41 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'create-dados-desempenho' %}" class="btn btn-primary">Criar</a>
+<table> 
+    <tr> 
+        <th>Usuario</th> 
+        <th>Data</th> 
+        <th>ProducaoEnergetica</th>
+        <th>ConsumoEnergetico</th>
+        <th>ValorKWH</th>
+        <th>Lucro</th>
+        <th>Prejuizo</th>
+        <th>Margem</th>
+        <th>TempoDeOperacao</th>
+        <th>TempoDeParada</th> 
+        <th>Opcoes</th>
+    </tr> 
+    {% for dado in object_list %} 
+        <tr> 
+            <td>{{ dado.usuario }}</td> 
+            <td>{{ dado.data }}</td> 
+            <td>{{ dado.producao_energetica }}</td> 
+            <td>{{ dado.consumo_energetico }}</td> 
+            <td>{{ dado.valor_kwh }}</td> 
+            <td>{{ dado.lucro }}</td> 
+            <td>{{ dado.prejuizo }}</td> 
+            <td>{{ dado.margem }}</td> 
+            <td>{{ dado.tempo_de_operacao }}</td> 
+            <td>{{ dado.tempo_de_parada }}</td> 
+            <td>
+                <a href="{% url 'update-dados-desempenho' dado.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'delete-dados-desempenho' dado.pk %}" class="btn btn-danger">Excluir</a>
+            </td>
+        </tr> 
+    {% empty %} 
+        <p>Nao tem :)</p>
+    {% endfor %} 
+</table>
+{% endblock %}

@@ -45,7 +45,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{% url 'index' %}" class="logo d-flex align-items-center">
         <img src="{% static 'assets/img/logo.png'%}" alt="">
         <span class="d-none d-lg-block">Gride&Gride</span>
       </a>
@@ -53,8 +53,8 @@
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-        <a class="login-home" href="pages-login.html">Login</a>
-        <a class="register-home" href="pages-register.html">Cadastro</a>
+        <a class="login-home" href="{% url 'pages-login' %}">Login</a>
+        <a class="register-home" href="{% url 'pages-register' %}">Cadastro</a>
       </ul>
     </nav><!-- End Icons Navigation -->
 
@@ -64,7 +64,7 @@
     <div class="base-contend">
       <div>Com a Gride administrar sua usina ficou muito mais fácil!</div>
     </div><!-- End Page Contend -->
-    <a class="register-contend" href="pages-register.html">Cadastro</a>
+    <a class="register-contend" href="{% url 'pages-register' %}">Cadastro</a>
 
   </main><!-- End #main -->
 

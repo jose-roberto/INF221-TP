@@ -1,0 +1,29 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'create-cache-relatorio' %}" class="btn btn-primary">Criar</a>
+<table> 
+    <tr> 
+        <th>Usuario</th> 
+        <th>Data</th> 
+        <th>Tipo</th> 
+        <th>DadosRelatorio</th> 
+        <th>Opcoes</th>
+    </tr> 
+    {% for dado in object_list %} 
+        <tr> 
+            <td>{{ dado.usuario }}</td> 
+            <td>{{ dado.data }}</td> 
+            <td>{{ dado.tipo }}</td> 
+            <td>{{ dado.dados_relatorio }}</td> 
+            <td>
+                <a href="{% url 'update-cache-relatorio' dado.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'delete-cache-relatorio' dado.pk %}" class="btn btn-danger">Excluir</a>
+            </td>
+        </tr> 
+    {% empty %} 
+        <p>Nao tem :)</p>
+    {% endfor %} 
+</table>
+{% endblock %}

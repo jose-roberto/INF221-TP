@@ -1,0 +1,28 @@
+{% extends 'forms/base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'create-dados-falhas' %}" class="btn btn-primary">Criar</a>
+
+<table> 
+    <tr> 
+        <th>Usuario</th> 
+        <th>Data</th> 
+        <th>Falha</th> 
+        <th>Opcoes</th>
+    </tr> 
+    {% for dado in object_list %} 
+        <tr> 
+            <td>{{ dado.usuario }}</td> 
+            <td>{{ dado.data }}</td> 
+            <td>{{ dado.falha }}</td>
+            <td>
+                <a href="{% url 'update-dados-falhas' dado.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'delete-dados-falhas' dado.pk %}" class="btn btn-danger">Excluir</a>
+            </td> 
+        </tr> 
+    {% empty %} 
+        <p>Nao tem :)</p>
+    {% endfor %} 
+</table>
+{% endblock %}

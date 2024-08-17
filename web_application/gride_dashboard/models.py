@@ -8,13 +8,15 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=50)
     localizacao = models.CharField(max_length=200)
     telefone = models.CharField(max_length=30)
+    def __str__(self):
+        return "{} ({})".format(self.cnpj,self.nome)
     
 class Dados(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
     class Meta:
         abstract = True
-        
+
 class DadosIntegridade(Dados):
     integridade_placa = models.FloatField()
     eficiencia_placa = models.FloatField()
@@ -37,22 +39,22 @@ class CacheRelatorio(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=11)
     data = models.DateTimeField(auto_now_add=True)
+    # class Meta:
+    #     abstract = True
+    dados_relatorio = models.TextField()
     
-    class Meta:
-        abstract = True
-    
-class CacheRelatorioConsumo(CacheRelatorio):
-    dados_relatorio = models.TextField()
+# class CacheRelatorioConsumo(CacheRelatorio):
+#     dados_relatorio = models.TextField()
 
-class CacheRelatorioFalhas(CacheRelatorio):
-    dados_relatorio = models.TextField()
+# class CacheRelatorioFalhas(CacheRelatorio):
+#     dados_relatorio = models.TextField()
 
-class CacheRelatorioIntegridade(CacheRelatorio):
-    dados_relatorio = models.TextField()
+# class CacheRelatorioIntegridade(CacheRelatorio):
+#     dados_relatorio = models.TextField()
 
-class CacheRelatorioProducao(CacheRelatorio):
-    dados_relatorio = models.TextField()
+# class CacheRelatorioProducao(CacheRelatorio):
+#     dados_relatorio = models.TextField()
 
-class CacheRelatorioProjecao(CacheRelatorio):
-    dados_relatorio = models.TextField()
+# class CacheRelatorioProjecao(CacheRelatorio):
+#     dados_relatorio = models.TextField()
     
