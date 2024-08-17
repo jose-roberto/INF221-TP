@@ -2,7 +2,7 @@ import pandas as pd
 from django.db import connection
 from django.http import JsonResponse
 
-def projecao_produtiva(request):
+def projecao_produtiva(request, inicio, fim):
     # Extrair dados de produção
     query = """
     SELECT producao_energetica, consumo_energetico, valor_kwh, lucro, prejuizo, margem, tempo_de_operacao, tempo_de_parada
@@ -33,13 +33,33 @@ def projecao_produtiva(request):
         return JsonResponse({"error": "No data available after conversion"}, status=400)
 
     # Calcular estatísticas básicas
-    stats = {
-        'mean': df.mean().to_dict(),
-        'median': df.median().to_dict(),
-        'std': df.std().to_dict(),
-        'min': df.min().to_dict(),
-        'max': df.max().to_dict()
-    }
+    #selecionar os dados que sejam dos mesmos meses do periodo especificado
+    #ideia é observar a projecao produtiva de cada mes do periodo especificado
+    #avaliar consumo e producao energetica, as suas medias, e influencias externas
+    dados = [ ] #armazenar aq
+    if dados.empty:
+        return JsonResponse({"error": "No data avaliable for this period"})
+    
+    mes_i = inicio[3:5]
+    mes_f = fim[3:5] 
+    valor_kw = 0.70   
+    info_meses = {}
+    
+    for i in range(mes_i, mes_f % 12 + 1):
+        info_meses[i] = {
+            'producao_energetica': dados['producao_energetica'].sum(),
+            'media_producao': dados['producao_energetica'].mean(),
+            'valor': dados['producao_energetica'].sum() * valor_kw
+        }
+
+    total_produzido = None
+    for mes in info_meses:
+        total_produzido += info_meses[mes]['producao_energetica']
+        
+    media_produtiva = total_produzido / len(info_meses)
+    total_lucro = valor_kw * total_produzido
+        
+    #mostrar total produzido e o valor e a media
 
     # Retornar os dados como JsonResponse
-    return JsonResponse(stats, safe=False)
+    return JsonResponse(info_meses, safe=False)
