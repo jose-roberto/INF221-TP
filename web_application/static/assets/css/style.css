@@ -55,65 +55,22 @@ h6 {
   }
 }
 
-.base-contend {
-  text-align: left;
-  font-family: "Nunito", sans-serif;
-  color: #ffffff;
-  font-size: 40px;
-  font-weight: 600;
-  width: 15%;
-  max-width: 1200px;
-  height: auto;
-  max-height: 600px;
-  position: absolute;
-  top: 25%;
-  left: 10%;
-}
-
-.register-contend{
-  display: block;
-  color: #ffffff;
-  padding: 10px 15px;
-  background-color: #012970;
-  font-family: "Nunito", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  position: absolute;
-  top: 70%;
-  left: 10%;
-}
-
-.login-home{
+.nav-login a {
   display: inline-block;
   padding: 5px 14px;
   margin: 5px 15px 5px 0px;
+  text-decoration: none;
   color: #012970;
   background-color: #ffffff;
-  border-radius: 40px;
+  border-radius: 30px;
   transition: background-color 0.3s ease;
   font-family: "Nunito", sans-serif;
   font-size: 20px;
   font-weight: 600;
+  border: 2px solid #012970;
 }
 
-.register-home{
-  display: block;
-  color: #ffffff;
-  height: 100%;
-  padding: 15px 40px 15px 40px;
-  background-color: #012970;
-  font-family: "Nunito", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.register-home:hover {
-  background-color: #012970;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-.login-home:hover {
+.button-lr:hover {
   background-color: #e3eaf9;
   color: #4154f1;
   text-decoration: none;
