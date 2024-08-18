@@ -33,13 +33,13 @@
 - [X] Corrigir 'Proibido' ao atualizar página index
 - [X] Integrar Visualizar Perfil
 - [ ] Integrar Editar Perfil
-- [ ] Integrar Relatório de Consumo
-- [ ] Integrar Relatório de Produção
-- [ ] Integrar Relatório de Integridade
-- [ ] Integrar Relatório de Falhas
+- [X] Integrar Relatório de Consumo
+- [X] Integrar Relatório de Produção
+- [X] Integrar Relatório de Integridade
+- [X] Integrar Relatório de Falhas
 - [ ] Integrar Projeção Produtiva
 - [ ] Implementar cache para os relatórios
-- [ ] Implementar funcionalidade de gerar pdf
+- [X] Implementar funcionalidade de gerar pdf
 - [ ] Aprimorar o cálculo da projeção produtiva
 - [ ] Implementar funcionalidade de notificações
-
+- [ ] Generealizar parâmetros das views de releatório para acessar informação do cliente

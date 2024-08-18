@@ -5,7 +5,6 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('index', IndexView.as_view(), name='index'),
     path('homepage', HomepageView.as_view(), name='homepage'),
-    path('report-consumption', consumptionView, name='report-consumption'),
     path('report-failure', failureView, name='report-failure'),
     path('report-integridy', integridyView, name='report-integridy'),
     path('report-production', productionView, name='report-production'),

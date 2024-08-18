@@ -36,15 +36,6 @@ class ContactView(LoginRequiredMixin, TemplateView):
     template_name='pages-contact.html'
 
 @login_required
-def consumptionView(request):
-    if request.method == "GET":
-        return render(request,'report-consumption.html')
-    else:
-        data_inicio = request.POST.get('data_inicio')
-        data_termino = request.POST.get('data_termino')
-        filterList = DadosDesempenho.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
-
-@login_required
 def integridyView(request):
     if request.method == "GET":
         return render(request,'report-integridy.html')
@@ -52,6 +43,20 @@ def integridyView(request):
         data_inicio = request.POST.get('data_inicio')
         data_termino = request.POST.get('data_termino')
         filterList = DadosIntegridade.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+        
+        data_list = []
+        for item in filterList:
+            data_list.append([item.data.strftime('%d/%m/%Y'), item.eficiencia_placa, item.integridade_placa])
+        
+        generator = PDFGenerator()
+        header = ["Data", "Efiencia Placa", "Integridade Placa"]
+        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
+        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
+        pdf = generator.create_report(data_list, "Relatório de Integridade", header, (data_inicio, data_termino), "Wiliam Ltda.")
+        
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        return response
 
 @login_required
 def failureView(request):
@@ -61,6 +66,20 @@ def failureView(request):
         data_inicio = request.POST.get('data_inicio')
         data_termino = request.POST.get('data_termino')
         filterList = DadosFalha.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+        
+        data_list = []
+        for item in filterList:
+            data_list.append([item.data.strftime('%d/%m/%Y'), item.falha])
+        
+        generator = PDFGenerator()
+        header = ["Data", "Descrição Falha"]
+        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
+        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
+        pdf = generator.create_report(data_list, "Relatório de Falhas", header, (data_inicio, data_termino), "Wiliam Ltda.")
+        
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        return response
         
 @login_required
 def productionView(request):
@@ -74,11 +93,13 @@ def productionView(request):
         data_list = []
         for item in filterList:
             value = item.producao_energetica - item.consumo_energetico
-            data_list.append([item.data, item.producao_energetica, item.consumo_energetico, 
+            data_list.append([item.data.strftime('%d/%m/%Y'), item.producao_energetica, item.consumo_energetico, 
                               value, value * item.valor_kwh])
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
+        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
+        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Produção", header, (data_inicio, data_termino), "Wiliam Ltda.")
         
         response = HttpResponse(pdf, content_type='application/pdf')
