@@ -1,45 +1,50 @@
-import pandas as pd
-from django.db import connection
-from django.http import JsonResponse
+class ProjecaoProdutiva:
+    def __init__(self, _crescimento):
+        self.crescimento = _crescimento
+        self.meses = {
+            '01': 'Janeiro',
+            '02': 'Fevereiro',
+            '03': 'Março',
+            '04': 'Abril',
+            '05': 'Maio',
+            '06': 'Junho',
+            '07': 'Julho',
+            '08': 'Agosto',
+            '09': 'Setembro',
+            '10': 'Outubro',
+            '11': 'Novembro',
+            '12': 'Dezembro'
+        }
 
-def projecao_produtiva(request):
-    # Extrair dados de produção
-    query = """
-    SELECT producao_energetica, consumo_energetico, valor_kwh, lucro, prejuizo, margem, tempo_de_operacao, tempo_de_parada
-    FROM gride_dashboard_dados_desempenho WHERE usuario_id = 1 and data = '24/07/2002';
-    """
-    
-    # Executar a consulta e obter os dados
-    with connection.cursor() as cursor:
-        cursor.execute(query)
-        rows = cursor.fetchall()
-        
-    # Verificar se a consulta retornou resultados
-    if not rows:
-        print("Nenhum dado retornado do banco de dados.")
-        data = {"error": "No data available"}
-        return JsonResponse(data, safe=False)
-    
-    # Converter os dados para um DataFrame do Pandas
-    columns = ['producao_energetica', 'consumo_energetico', 'valor_kwh', 'lucro', 'prejuizo', 'margem', 'tempo_de_operacao', 'tempo_de_parada']
-    df = pd.DataFrame(rows, columns=columns)
+    def projecao_produtiva(self, data):
+        info_meses = {}
 
-    # Inspecionar os dados antes da conversão
-    print("Dados antes da conversão:")
-    print(df.head())
+        for item in data:
+            mes = item[0][3:5]
 
-    # Verificar se o DataFrame está vazio após a conversão
-    if df.empty:
-        return JsonResponse({"error": "No data available after conversion"}, status=400)
+            if mes not in info_meses:
+                info_meses[mes] = {
+                    'total_producao_energetica': 0,
+                    'total_consumo_energetico': 0,
+                    'total_kw': 0,
+                    'total_valor': 0
+                }
+                    
+            value = (item[1] - item[2])
+            info_meses[mes]['total_producao_energetica'] += item[1]
+            info_meses[mes]['total_consumo_energetico'] += item[2]
+            info_meses[mes]['total_kw'] += value
+            info_meses[mes]['total_valor'] += item[3] * value
+            
+        projection = []
+        for mes in info_meses:
+            value = (info_meses[mes]['total_producao_energetica'] - info_meses[mes]['total_consumo_energetico']) * (1 + self.crescimento)
+            projection.append([
+                self.meses[mes], 
+                round(info_meses[mes]['total_producao_energetica'] * (1 + self.crescimento), 2), 
+                round(info_meses[mes]['total_consumo_energetico'] * (1 + self.crescimento), 2),
+                round(info_meses[mes]['total_kw'] * (1 + self.crescimento), 2),
+                round(info_meses[mes]['total_valor'] * (1 + self.crescimento), 2)
+            ])
 
-    # Calcular estatísticas básicas
-    stats = {
-        'mean': df.mean().to_dict(),
-        'median': df.median().to_dict(),
-        'std': df.std().to_dict(),
-        'min': df.min().to_dict(),
-        'max': df.max().to_dict()
-    }
-
-    # Retornar os dados como JsonResponse
-    return JsonResponse(stats, safe=False)
+        return projection

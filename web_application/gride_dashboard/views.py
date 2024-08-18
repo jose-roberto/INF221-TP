@@ -16,7 +16,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from gride_dashboard.pdf.pdf_generator import PDFGenerator
-from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produtiva
+from gride_dashboard.projecao_produtiva.projecao_produtiva import ProjecaoProdutiva
 from numpy import asarray
 
 # Create your views here.
@@ -25,9 +25,9 @@ class IndexView(TemplateView):
 class HomepageView(LoginRequiredMixin, TemplateView):
     login_url = 'pages-login'
     template_name='homepage.html'
-class ProjectionView(LoginRequiredMixin, TemplateView):
-    login_url = 'pages-login'
-    template_name='projection.html'
+# class ProjectionView(LoginRequiredMixin, TemplateView):
+#     login_url = 'pages-login'
+#     template_name='projection.html'
 class ProfileView(LoginRequiredMixin, TemplateView):
     login_url = 'pages-login'
     template_name='users-profile.html'
@@ -52,7 +52,7 @@ def integridyView(request):
         header = ["Data", "Efiencia Placa", "Integridade Placa"]
         data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
         data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
-        pdf = generator.create_report(data_list, "Relatório de Integridade", header, (data_inicio, data_termino), "Wiliam Ltda.")
+        pdf = generator.create_report(data_list, "Relatório de Integridade", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
@@ -75,7 +75,7 @@ def failureView(request):
         header = ["Data", "Descrição Falha"]
         data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
         data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
-        pdf = generator.create_report(data_list, "Relatório de Falhas", header, (data_inicio, data_termino), "Wiliam Ltda.")
+        pdf = generator.create_report(data_list, "Relatório de Falhas", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
@@ -100,7 +100,48 @@ def productionView(request):
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
         data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
         data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
-        pdf = generator.create_report(data_list, "Relatório de Produção", header, (data_inicio, data_termino), "Wiliam Ltda.")
+        pdf = generator.create_report(data_list, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
+        
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        return response
+
+@login_required 
+def projectionView(request):
+    if request.method == "GET":
+        return render(request,'projection.html')
+    else:
+        data_inicio = request.POST.get('data_inicio')
+        data_termino = request.POST.get('data_termino')
+        crescimento = request.POST.get('crescimento')
+        crescimento = int(crescimento)/100
+        
+        mes_inicio = int(data_inicio[5:7])
+        dia_inicio = int(data_inicio[8:10])
+        mes_termino = int(data_termino[5:7])
+        dia_termino = int(data_termino[8:10])
+
+        filterList = DadosDesempenho.objects.filter(
+            usuario=request.user,
+            data__month__gte=mes_inicio,
+            data__month__lte=mes_termino,
+            data__day__gte=dia_inicio,
+            data__day__lte=dia_termino
+        )
+        
+        proj = ProjecaoProdutiva(crescimento)
+        
+        data_list = []
+        for item in filterList:
+            data_list.append([item.data.strftime('%d/%m/%Y'), item.producao_energetica, item.consumo_energetico, item.valor_kwh])
+        
+        data_proj = proj.projecao_produtiva(data_list)
+        
+        generator = PDFGenerator()
+        header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
+        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
+        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
+        pdf = generator.create_report(data_proj, "Projeção Produtiva", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
@@ -180,22 +221,6 @@ def update_user(request):
         usuario[0].save()
         
         return redirect('read_user')
-    
-@login_required
-def render_projecao_produtiva(request):
-    try:
-        response = projecao_produtiva(request)
-        if isinstance(response, JsonResponse):
-            data = response.json()
-            data = asarray(data)
-        else:
-            return response
-    except ValueError as e:
-        return HttpResponse(f"Erro ao processar os dados: {e}")
-    except Exception as e:
-        return HttpResponse(f"Erro inesperado: {e}")
-    
-    return render(request, 'projecao_produtiva.html', {'data': data})
 
 class CreateDadosIntegridade(CreateView):
     model = DadosIntegridade

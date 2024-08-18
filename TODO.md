@@ -43,3 +43,4 @@
 - [ ] Aprimorar o cálculo da projeção produtiva
 - [ ] Implementar funcionalidade de notificações
 - [ ] Generealizar parâmetros das views de releatório para acessar informação do cliente
+- [ ] Mudar tudo relacionado a usuario

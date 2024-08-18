@@ -8,7 +8,7 @@ urlpatterns = [
     path('report-failure', failureView, name='report-failure'),
     path('report-integridy', integridyView, name='report-integridy'),
     path('report-production', productionView, name='report-production'),
-    path('projection', ProjectionView.as_view(), name='projection'),
+    path('projection', projectionView, name='projection'),
     path('users-profile', ProfileView.as_view(), name='profile'),
     path('pages-contact', ContactView.as_view(), name='pages-contact'),
 

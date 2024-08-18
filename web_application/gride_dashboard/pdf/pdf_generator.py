@@ -68,7 +68,7 @@ class PDFGenerator:
         elements.append(Spacer(1, 20))
 
         company_info = [
-            Paragraph(f"Nome da Empresa: {company}", normal_style),
+            Paragraph(f"CNPJ da Empresa: {company}", normal_style),
             Paragraph(f"Período: {period[0]} a {period[1]}", normal_style),
         ]
         for info in company_info:
@@ -81,7 +81,6 @@ class PDFGenerator:
         table_data.append(header)
         for row in data:
             table_data.append(row)
-        table_data.append(['Total'])
 
         table_style = TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), HexColor('#606eee')),
