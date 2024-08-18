@@ -15,6 +15,7 @@ from .models import *
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from gride_dashboard.pdf.pdf_generator import PDFGenerator
 from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produtiva
 from numpy import asarray
 
@@ -69,6 +70,20 @@ def productionView(request):
         data_inicio = request.POST.get('data_inicio')
         data_termino = request.POST.get('data_termino')
         filterList = DadosDesempenho.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+        
+        data_list = []
+        for item in filterList:
+            value = item.producao_energetica - item.consumo_energetico
+            data_list.append([item.data, item.producao_energetica, item.consumo_energetico, 
+                              value, value * item.valor_kwh])
+        
+        generator = PDFGenerator()
+        header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
+        pdf = generator.create_report(data_list, "Relatório de Produção", header, (data_inicio, data_termino), "Wiliam Ltda.")
+        
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        return response
 
 def register(request):
     if request.method == "GET":
