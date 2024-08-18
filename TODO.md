@@ -37,10 +37,10 @@
 - [X] Integrar Relatório de Produção
 - [X] Integrar Relatório de Integridade
 - [X] Integrar Relatório de Falhas
-- [ ] Integrar Projeção Produtiva
+- [X] Integrar Projeção Produtiva
 - [ ] Implementar cache para os relatórios
 - [X] Implementar funcionalidade de gerar pdf
-- [ ] Aprimorar o cálculo da projeção produtiva
+- [X] Aprimorar o cálculo da projeção produtiva
 - [ ] Implementar funcionalidade de notificações
-- [ ] Generealizar parâmetros das views de releatório para acessar informação do cliente
+- [X] Generealizar parâmetros das views de releatório para acessar informação do cliente
 - [ ] Mudar tudo relacionado a usuario
