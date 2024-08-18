@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Usuario(models.Model):
@@ -12,7 +13,7 @@ class Usuario(models.Model):
         return "{} ({})".format(self.cnpj,self.nome)
     
 class Dados(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
     class Meta:
         abstract = True
@@ -20,9 +21,13 @@ class Dados(models.Model):
 class DadosIntegridade(Dados):
     integridade_placa = models.FloatField()
     eficiencia_placa = models.FloatField()
+    def __str__(self):
+        return "{} ({})".format(self.usuario.first_name,self.data)
     
-class DadosFalhas(Dados):
+class DadosFalha(Dados):
     falha = models.TextField()
+    def __str__(self):
+        return "{} ({})".format(self.usuario.first_name,self.data)
     
 class DadosDesempenho(Dados):
     producao_energetica = models.FloatField()
@@ -33,15 +38,19 @@ class DadosDesempenho(Dados):
     margem = models.FloatField()
     tempo_de_operacao = models.FloatField()
     tempo_de_parada = models.FloatField()
+    def __str__(self):
+        return "{} ({})".format(self.usuario.first_name,self.data)
     
 # cache
 class CacheRelatorio(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=11)
     data = models.DateTimeField(auto_now_add=True)
+    dados_relatorio = models.TextField()
+    def __str__(self):
+        return "{} ({}) ({})".format(self.usuario.first_name,self.tipo,self.data)
     # class Meta:
     #     abstract = True
-    dados_relatorio = models.TextField()
     
 # class CacheRelatorioConsumo(CacheRelatorio):
 #     dados_relatorio = models.TextField()

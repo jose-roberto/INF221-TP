@@ -15,9 +15,9 @@
 - [X] Adicionar placeholders em Login e Register
 - [X] Adicionar botão para logout
 - [X] Inserir atributos ausentes na tela de cadastro
-- [x] Trocar 'homepage' por 'index' e vice-versa
-- [ ] Remover '.html' das urls (prática ruim)
-- [x] Exibir imagem e colocar texto na página inicial
+- [X] Trocar 'homepage' por 'index' e vice-versa
+- [X] Remover '.html' das urls (prática ruim)
+- [X] Exibir imagem e colocar texto na página inicial
 
 ## Back-end
 - [X] Criar esqueleto do banco de dados

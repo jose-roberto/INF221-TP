@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -12,31 +13,62 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from .models import *
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from gride_dashboard.projecao_produtiva.projecao_produtiva import projecao_produtiva
-
 from numpy import asarray
 
 # Create your views here.
-#@login_required(login_url='/pages-login.html')
-class HomepageView(TemplateView):
-    template_name='homepage.html'
 class IndexView(TemplateView):
     template_name='index.html'
-class ConsumptionView(TemplateView):
-    template_name='report-consumption.html'
-class IntegridyView(TemplateView):
-    template_name='report-integridy.html'
-class FailureView(TemplateView):
-    template_name='report-failure.html'
-class ProductionView(TemplateView):
-    template_name='report-production.html'
-class ProjectionView(TemplateView):
+class HomepageView(LoginRequiredMixin, TemplateView):
+    login_url = 'pages-login'
+    template_name='homepage.html'
+class ProjectionView(LoginRequiredMixin, TemplateView):
+    login_url = 'pages-login'
     template_name='projection.html'
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
+    login_url = 'pages-login'
     template_name='users-profile.html'
-class ContactView(TemplateView):
+class ContactView(LoginRequiredMixin, TemplateView):
+    login_url = 'pages-login'
     template_name='pages-contact.html'
+
+@login_required
+def consumptionView(request):
+    if request.method == "GET":
+        return render(request,'report-consumption.html')
+    else:
+        data_inicio = request.POST.get('data_inicio')
+        data_termino = request.POST.get('data_termino')
+        filterList = DadosDesempenho.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+
+@login_required
+def integridyView(request):
+    if request.method == "GET":
+        return render(request,'report-integridy.html')
+    else:
+        data_inicio = request.POST.get('data_inicio')
+        data_termino = request.POST.get('data_termino')
+        filterList = DadosIntegridade.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+
+@login_required
+def failureView(request):
+    if request.method == "GET":
+        return render(request,'report-failure.html')
+    else:
+        data_inicio = request.POST.get('data_inicio')
+        data_termino = request.POST.get('data_termino')
+        filterList = DadosFalha.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+        
+@login_required
+def productionView(request):
+    if request.method == "GET":
+        return render(request,'report-production.html')
+    else:
+        data_inicio = request.POST.get('data_inicio')
+        data_termino = request.POST.get('data_termino')
+        filterList = DadosDesempenho.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
 
 def register(request):
     if request.method == "GET":
@@ -112,7 +144,8 @@ def update_user(request):
         usuario[0].save()
         
         return redirect('read_user')
-
+    
+@login_required
 def render_projecao_produtiva(request):
     try:
         response = projecao_produtiva(request)
@@ -130,12 +163,15 @@ def render_projecao_produtiva(request):
 
 class CreateDadosIntegridade(CreateView):
     model = DadosIntegridade
-    fields = ['usuario', 'integridade_placa', 'eficiencia_placa',]
+    fields = ['integridade_placa', 'eficiencia_placa',]
     template_name = 'forms/cadastro.html'
     success_url = reverse_lazy('list-dados-integridade')
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
 class UpdateDadosIntegridade(UpdateView):
     model = DadosIntegridade
-    fields = ['usuario', 'integridade_placa', 'eficiencia_placa',]
+    fields = ['integridade_placa', 'eficiencia_placa',]
     template_name = 'forms/update.html'
     success_url = reverse_lazy('list-dados-integridade')
 class DeleteDadosIntegridade(DeleteView):
@@ -145,28 +181,38 @@ class DeleteDadosIntegridade(DeleteView):
 class ListDadosIntegridade(ListView):
     model = DadosIntegridade
     template_name = 'forms/list-dados-integridade.html'
+    def get_queryset(self):
+        self.object_list = DadosIntegridade.objects.filter(usuario=self.request.user)
+        return self.object_list
         
 class CreateDadosFalhas(CreateView):
-    model = DadosFalhas
-    fields = ['usuario', 'falha',]
+    model = DadosFalha
+    fields = ['falha',]
     template_name = 'forms/cadastro.html'
     success_url = reverse_lazy('list-dados-falhas')
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
 class UpdateDadosFalhas(UpdateView):
-    model = DadosFalhas
-    fields = ['usuario', 'falha',]
+    model = DadosFalha
+    fields = ['falha',]
     template_name = 'forms/update.html'
     success_url = reverse_lazy('list-dados-falhas')
 class DeleteDadosFalhas(DeleteView):
-    model = DadosFalhas
+    model = DadosFalha
     template_name = 'forms/delete.html'
     success_url = reverse_lazy('list-dados-falhas')
 class ListDadosFalhas(ListView):
-    model = DadosFalhas
+    model = DadosFalha
     template_name = 'forms/list-dados-falhas.html'
+
+    def get_queryset(self):
+        self.object_list = DadosFalha.objects.filter(usuario=self.request.user)
+        return self.object_list
 
 class CreateDadosDesempenho(CreateView):
     model = DadosDesempenho
-    fields = ['usuario', 
+    fields = [
               'producao_energetica',
               'consumo_energetico',
               'valor_kwh',
@@ -178,9 +224,12 @@ class CreateDadosDesempenho(CreateView):
               ]
     template_name = 'forms/cadastro.html'
     success_url = reverse_lazy('list-dados-desempenho')
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
 class UpdateDadosDesempenho(UpdateView):
     model = DadosDesempenho
-    fields = ['usuario', 
+    fields = [
               'producao_energetica',
               'consumo_energetico',
               'valor_kwh',
@@ -199,15 +248,21 @@ class DeleteDadosDesempenho(DeleteView):
 class ListDadosDesempenho(ListView):
     model = DadosDesempenho
     template_name = 'forms/list-dados-desempenho.html'
+    def get_queryset(self):
+        self.object_list = DadosDesempenho.objects.filter(usuario=self.request.user)
+        return self.object_list
     
 class CreateCacheRelatorio(CreateView):
     model = CacheRelatorio
-    fields = ['usuario', 'tipo', 'dados_relatorio',]
+    fields = ['tipo', 'dados_relatorio',]
     template_name = 'forms/cadastro.html'
     success_url = reverse_lazy('list-cache-relatorio')
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
 class UpdateCacheRelatorio(UpdateView):
     model = CacheRelatorio
-    fields = ['usuario', 'tipo', 'dados_relatorio',]
+    fields = ['tipo', 'dados_relatorio',]
     template_name = 'forms/update.html'
     success_url = reverse_lazy('list-cache-relatorio')
 class DeleteCacheRelatorio(DeleteView):
@@ -217,5 +272,8 @@ class DeleteCacheRelatorio(DeleteView):
 class ListCacheRelatorio(ListView):
     model = CacheRelatorio
     template_name = 'forms/list-cache-relatorio.html'
+    def get_queryset(self):
+        self.object_list = CacheRelatorio.objects.filter(usuario=self.request.user)
+        return self.object_list
 
     
