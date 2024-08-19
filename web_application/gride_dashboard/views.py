@@ -25,9 +25,6 @@ class IndexView(TemplateView):
 class HomepageView(LoginRequiredMixin, TemplateView):
     login_url = 'pages-login'
     template_name='homepage.html'
-# class ProjectionView(LoginRequiredMixin, TemplateView):
-#     login_url = 'pages-login'
-#     template_name='projection.html'
 class ProfileView(LoginRequiredMixin, TemplateView):
     login_url = 'pages-login'
     template_name='users-profile.html'
@@ -48,7 +45,6 @@ def proxyView(request):
         generator = PDFGenerator()
         data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
         data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
-        # return HttpResponse(cache[0].dados_relatorio)
         
         if tipo == 'Integridade':
             header = ["Data", "Efiencia Placa", "Integridade Placa"]
@@ -101,7 +97,7 @@ def integridyView(request):
         user = request.user
         _usuario = User.objects.filter(username=user.username)
         
-        relatorio_integridade = CacheRelatorio(usuario = _usuario[0], tipo='Integridade', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_integridade = CacheRelatorio(usuario = _usuario[0], tipo='Integridade', dados_relatorio=data_list, inicio_periodo = _data_inicio, fim_periodo = _data_termino)
         relatorio_integridade.save()
         
         return response
@@ -131,7 +127,13 @@ def failureView(request):
         user = request.user
         _usuario = User.objects.filter(username=user.username)
         
-        relatorio_falhas = CacheRelatorio(usuario = _usuario[0], tipo='Falhas', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_falhas = CacheRelatorio(
+            usuario=_usuario[0], 
+            tipo='Falhas', 
+            dados_relatorio=data_list,
+            inicio_periodo=_data_inicio, 
+            fim_periodo=_data_termino
+        )
         relatorio_falhas.save()
         
         return response
@@ -163,7 +165,7 @@ def productionView(request):
         user = request.user
         _usuario = User.objects.filter(username=user.username)
         
-        relatorio_producao = CacheRelatorio(usuario = _usuario[0], tipo='Produção', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_producao = CacheRelatorio(usuario = _usuario[0], tipo='Produção', dados_relatorio=data_list, inicio_periodo = _data_inicio, fim_periodo = _data_termino)
         relatorio_producao.save()
         
         return response
@@ -211,7 +213,7 @@ def projectionView(request):
         user = request.user
         _usuario = User.objects.filter(username=user.username)
         
-        relatorio_projecao = CacheRelatorio(usuario = _usuario[0], tipo='Projecão Produtiva', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_projecao = CacheRelatorio(usuario = _usuario[0], tipo='Projecão Produtiva', dados_relatorio=data_list, inicio_periodo = _data_inicio, fim_periodo = _data_termino)
         relatorio_projecao.save()
         
         return response

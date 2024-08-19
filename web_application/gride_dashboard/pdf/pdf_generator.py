@@ -95,18 +95,7 @@ class PDFGenerator:
         doc.build(elements)
         buffer.seek(0)
         
-        return buffer.getvalue()
-        
-    def create_report_cache(self, data, type, header, period, company):
-        table_data = []
-        table_data.append(header)
-        for row in data:
-            line = row.split("''")
-            table_data.append(line)
-            
-        pdf = self.pdf_base(table_data, type, header, period, company)
-
-        return pdf
+        return buffer.getvalue()     
     
     def create_report(self, data, type, header, period, company):
         table_data = []

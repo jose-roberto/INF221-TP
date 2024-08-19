@@ -42,6 +42,7 @@
 - [X] Aprimorar o cálculo da projeção produtiva
 - [X] Implementar funcionalidade de notificações
 - [X] Generealizar parâmetros das views de releatório para acessar informação do cliente
-- [ ] Implementar cache para os relatórios
-- [ ] Formatar tela inicial
+- [X] Implementar cache para os relatórios
+- [X] Formatar tela inicial
+- [X] Formatar página de contato
 

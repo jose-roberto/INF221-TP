@@ -54,7 +54,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
+                      <h6>R$3,264</h6>
                     </div>
                   </div>
                 </div>
@@ -74,7 +74,7 @@
                       <i class="bi bi-exclamation-octagon"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
+                      <h6>8</h6>
                     </div>
                   </div>
 
@@ -88,7 +88,7 @@
               <div class="card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Produção semanal</h5>
+                  <h5 class="card-title">Última Semana</h5>
 
                   <!-- Line Chart -->
                   <div id="reportsChart"></div>
@@ -97,13 +97,13 @@
                     document.addEventListener("DOMContentLoaded", () => {
                       new ApexCharts(document.querySelector("#reportsChart"), {
                         series: [{
-                          name: 'Sales',
-                          data: [31, 40, 28, 51, 42, 82, 56],
+                          name: 'Produção',
+                          data: [310, 400, 280, 510, 420, 820, 560],
                         }, {
-                          name: 'Revenue',
+                          name: 'Falhas',
                           data: [11, 32, 45, 32, 34, 52, 41]
                         }, {
-                          name: 'Customers',
+                          name: 'Consumo',
                           data: [15, 11, 32, 18, 9, 24, 11]
                         }],
                         chart: {
@@ -134,14 +134,21 @@
                           width: 2
                         },
                         xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+                          type: 'category',
+                          categories: ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"],
+                          labels: {
+                            formatter: function(value) {
+                              return value;
+                            }
+                          }
                         },
                         tooltip: {
                           x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
+                            formatter: function(value) {
+                              return value;
+                            }
+                          }
+                        },
                       }).render();
                     });
                   </script>
@@ -169,7 +176,7 @@
                   <div class="activite-label">32 min</div>
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                   <div class="activity-content">
-                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                    Seu número de falhas semanais reduziu.
                   </div>
                 </div><!-- End activity item-->
 
@@ -177,42 +184,33 @@
                   <div class="activite-label">56 min</div>
                   <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                   <div class="activity-content">
-                    Voluptatem blanditiis blanditiis eveniet
+                    Queda de produção devido a tempestades.
                   </div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
+                  <div class="activite-label">9 hrs</div>
                   <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
                   <div class="activity-content">
-                    Voluptates corrupti molestias voluptatem
+                    Integridade das placas do bloco E comprometidas.
                   </div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">1 day</div>
+                  <div class="activite-label">1 dia</div>
                   <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
                   <div class="activity-content">
-                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
+                    Aumento no valor do kwH.
                   </div>
                 </div><!-- End activity item-->
 
                 <div class="activity-item d-flex">
-                  <div class="activite-label">2 days</div>
+                  <div class="activite-label">19 dias</div>
                   <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
                   <div class="activity-content">
-                    Est sit eum reiciendis exercitationem
+                    Veja o seu relatório mensal do mês de julho.
                   </div>
                 </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                  </div>
-                </div><!-- End activity item-->
-
               </div>
 
             </div>

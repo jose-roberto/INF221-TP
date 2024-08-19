@@ -46,7 +46,7 @@ class CacheRelatorio(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=11)
     data_criacao = models.DateTimeField(auto_now_add=True)
-    dados_relatorio = models.TextField()
+    dados_relatorio = models.JSONField()
     inicio_periodo = models.DateTimeField()
     fim_periodo = models.DateTimeField()
     def __str__(self):
