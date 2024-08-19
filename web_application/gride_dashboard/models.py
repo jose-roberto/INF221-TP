@@ -45,8 +45,10 @@ class DadosDesempenho(Dados):
 class CacheRelatorio(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=11)
-    data = models.DateTimeField(auto_now_add=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
     dados_relatorio = models.TextField()
+    inicio_periodo = models.DateTimeField()
+    fim_periodo = models.DateTimeField()
     def __str__(self):
         return "{} ({}) ({})".format(self.usuario.first_name,self.tipo,self.data)
     # class Meta:

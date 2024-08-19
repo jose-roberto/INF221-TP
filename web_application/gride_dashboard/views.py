@@ -36,13 +36,54 @@ class ContactView(LoginRequiredMixin, TemplateView):
     template_name='pages-contact.html'
 
 @login_required
+def proxyView(request):
+    user = request.user
+    
+    _data_inicio = request.POST.get('data_inicio')
+    _data_termino = request.POST.get('data_termino')
+    tipo = request.POST.get('tipo')
+    
+    cache = CacheRelatorio.objects.filter(usuario=request.user).filter(tipo=tipo).filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
+    if len(cache) != 0:
+        generator = PDFGenerator()
+        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        # return HttpResponse(cache[0].dados_relatorio)
+        
+        if tipo == 'Integridade':
+            header = ["Data", "Efiencia Placa", "Integridade Placa"]
+            pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Integridade", header, (data_inicio, data_termino), user.username)
+        elif tipo == 'Falhas':
+            header = ["Data", "Descrição Falha"]
+            pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Falhas", header, (data_inicio, data_termino), request.user.username)
+        elif tipo == 'Produção':
+            header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
+            pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
+        elif tipo == 'Projecão Produtiva':
+            header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
+            pdf = generator.create_report(cache[0].dados_relatorio, "Projeção Produtiva", header, (data_inicio, data_termino), request.user.username)
+        
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        return response
+    else:
+        if tipo == 'Integridade':
+            return integridyView(request)
+        elif tipo == 'Falhas':
+            return failureView(request)
+        elif tipo == 'Produção':
+            return productionView(request)
+        elif tipo == 'Projecão Produtiva':
+            return projectionView(request)
+
+@login_required
 def integridyView(request):
     if request.method == "GET":
         return render(request,'report-integridy.html')
     else:
-        data_inicio = request.POST.get('data_inicio')
-        data_termino = request.POST.get('data_termino')
-        filterList = DadosIntegridade.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+        _data_inicio = request.POST.get('data_inicio')
+        _data_termino = request.POST.get('data_termino')
+        filterList = DadosIntegridade.objects.filter(usuario=request.user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
         
         data_list = []
         for item in filterList:
@@ -50,12 +91,19 @@ def integridyView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Efiencia Placa", "Integridade Placa"]
-        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
-        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
+        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Integridade", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        
+        user = request.user
+        _usuario = User.objects.filter(username=user.username)
+        
+        relatorio_integridade = CacheRelatorio(usuario = _usuario[0], tipo='Integridade', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_integridade.save()
+        
         return response
 
 @login_required
@@ -63,9 +111,9 @@ def failureView(request):
     if request.method == "GET":
         return render(request,'report-failure.html')
     else:
-        data_inicio = request.POST.get('data_inicio')
-        data_termino = request.POST.get('data_termino')
-        filterList = DadosFalha.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+        _data_inicio = request.POST.get('data_inicio')
+        _data_termino = request.POST.get('data_termino')
+        filterList = DadosFalha.objects.filter(usuario=request.user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
         
         data_list = []
         for item in filterList:
@@ -73,12 +121,19 @@ def failureView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Descrição Falha"]
-        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
-        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
+        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Falhas", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        
+        user = request.user
+        _usuario = User.objects.filter(username=user.username)
+        
+        relatorio_falhas = CacheRelatorio(usuario = _usuario[0], tipo='Falhas', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_falhas.save()
+        
         return response
         
 @login_required
@@ -86,9 +141,9 @@ def productionView(request):
     if request.method == "GET":
         return render(request,'report-production.html')
     else:
-        data_inicio = request.POST.get('data_inicio')
-        data_termino = request.POST.get('data_termino')
-        filterList = DadosDesempenho.objects.filter(usuario=request.user).filter(data__gte=data_inicio).filter(data__lte=data_termino)
+        _data_inicio = request.POST.get('data_inicio')
+        _data_termino = request.POST.get('data_termino')
+        filterList = DadosDesempenho.objects.filter(usuario=request.user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
         
         data_list = []
         for item in filterList:
@@ -98,12 +153,19 @@ def productionView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
-        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
+        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        
+        user = request.user
+        _usuario = User.objects.filter(username=user.username)
+        
+        relatorio_producao = CacheRelatorio(usuario = _usuario[0], tipo='Produção', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_producao.save()
+        
         return response
 
 @login_required 
@@ -111,15 +173,15 @@ def projectionView(request):
     if request.method == "GET":
         return render(request,'projection.html')
     else:
-        data_inicio = request.POST.get('data_inicio')
-        data_termino = request.POST.get('data_termino')
+        _data_inicio = request.POST.get('data_inicio')
+        _data_termino = request.POST.get('data_termino')
         crescimento = request.POST.get('crescimento')
         crescimento = int(crescimento)/100
         
-        mes_inicio = int(data_inicio[5:7])
-        dia_inicio = int(data_inicio[8:10])
-        mes_termino = int(data_termino[5:7])
-        dia_termino = int(data_termino[8:10])
+        mes_inicio = int(_data_inicio[5:7])
+        dia_inicio = int(_data_inicio[8:10])
+        mes_termino = int(_data_termino[5:7])
+        dia_termino = int(_data_termino[8:10])
 
         filterList = DadosDesempenho.objects.filter(
             usuario=request.user,
@@ -139,12 +201,19 @@ def projectionView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-        data_inicio =  data_inicio[8:11] + "/" + data_inicio[5:7] + "/" + data_inicio[0:4]
-        data_termino =  data_termino[8:11] + "/" + data_termino[5:7] + "/" + data_termino[0:4]
+        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_proj, "Projeção Produtiva", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+        
+        user = request.user
+        _usuario = User.objects.filter(username=user.username)
+        
+        relatorio_projecao = CacheRelatorio(usuario = _usuario[0], tipo='Projecão Produtiva', dados_relatorio=asarray(data_list), inicio_periodo = _data_inicio, fim_periodo = _data_termino)
+        relatorio_projecao.save()
+        
         return response
 
 def register(request):
@@ -195,8 +264,9 @@ def logout(request):
 @login_required
 def read_user(request):
     user = request.user
-    usuario = Usuario.objects.filter(cnpj=user.username)
-   
+
+    usuario = Usuario.objects.filter(cnpj=User.objects.filter(username=user.username)[0].username)
+    
     context = {
         'name': usuario[0].nome,
         'username': usuario[0].cnpj,
@@ -211,14 +281,9 @@ def read_user(request):
 def update_user(request):
     if request.method == "POST":
         user = request.user
-        usuario = Usuario.objects.filter(cnpj=user.username)
-        
-        usuario[0].nome = request.POST.get('name')
-        usuario[0].email = request.POST.get('email')
-        usuario[0].telefone = request.POST.get('phone')
-        usuario[0].localizacao = request.POST.get('location')
-        
-        usuario[0].save()
+        usuario = Usuario.objects.filter(cnpj=User.objects.filter(username=user.username)[0].username)
+
+        usuario.update(nome = request.POST.get('name'), email = request.POST.get('email'), telefone = request.POST.get('phone'), localizacao = request.POST.get('location'))
         
         return redirect('read_user')
 
@@ -315,7 +380,7 @@ class ListDadosDesempenho(ListView):
     
 class CreateCacheRelatorio(CreateView):
     model = CacheRelatorio
-    fields = ['tipo', 'dados_relatorio',]
+    fields = ['tipo', 'dados_relatorio', 'inicio_periodo', 'fim_periodo',]
     template_name = 'forms/cadastro.html'
     success_url = reverse_lazy('list-cache-relatorio')
     def form_valid(self, form):
@@ -323,7 +388,7 @@ class CreateCacheRelatorio(CreateView):
         return super().form_valid(form)
 class UpdateCacheRelatorio(UpdateView):
     model = CacheRelatorio
-    fields = ['tipo', 'dados_relatorio',]
+    fields = ['tipo', 'dados_relatorio', 'inicio_periodo', 'fim_periodo',]
     template_name = 'forms/update.html'
     success_url = reverse_lazy('list-cache-relatorio')
 class DeleteCacheRelatorio(DeleteView):

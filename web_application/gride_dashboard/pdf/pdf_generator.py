@@ -16,8 +16,7 @@ class PDFGenerator:
     def __init__(self):
         pass
     
-    @staticmethod
-    def create_report(data, type, header, period, company):
+    def pdf_base(self, table_data, type, header, period, company):
         base_dir = os.path.dirname(os.path.abspath(__file__))
         nunito_regular_path = os.path.join(base_dir, 'Nunito-Regular.ttf')
         nunito_bold_path = os.path.join(base_dir, 'Nunito-Bold.ttf')
@@ -43,7 +42,6 @@ class PDFGenerator:
         elements.append(logo)
         elements.append(Spacer(1, 20))
         
-        # Estilos
         styles = getSampleStyleSheet()
         title_style = ParagraphStyle(
             name='Title',
@@ -77,11 +75,6 @@ class PDFGenerator:
             
         elements.append(Spacer(1, 8))
 
-        table_data = []
-        table_data.append(header)
-        for row in data:
-            table_data.append(row)
-
         table_style = TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), HexColor('#606eee')),
             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
@@ -103,3 +96,24 @@ class PDFGenerator:
         buffer.seek(0)
         
         return buffer.getvalue()
+        
+    def create_report_cache(self, data, type, header, period, company):
+        table_data = []
+        table_data.append(header)
+        for row in data:
+            line = row.split("''")
+            table_data.append(line)
+            
+        pdf = self.pdf_base(table_data, type, header, period, company)
+
+        return pdf
+    
+    def create_report(self, data, type, header, period, company):
+        table_data = []
+        table_data.append(header)
+        for row in data:
+            table_data.append(row)
+            
+        pdf = self.pdf_base(table_data, type, header, period, company)
+
+        return pdf

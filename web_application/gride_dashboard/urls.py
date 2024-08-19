@@ -9,6 +9,7 @@ urlpatterns = [
     path('report-integridy', integridyView, name='report-integridy'),
     path('report-production', productionView, name='report-production'),
     path('projection', projectionView, name='projection'),
+    path('proxy-cache', proxyView, name='proxy-cache'),
     path('users-profile', ProfileView.as_view(), name='profile'),
     path('pages-contact', ContactView.as_view(), name='pages-contact'),
 

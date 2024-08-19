@@ -4,10 +4,10 @@
 - [X] Descobrir como integrar POO e Padrões com Django
 - [X] Entender como o front-end comunica com o back-end no Django
 - [X] Entender aplicação do padrão de projeto Proxy
-- [ ] Entender aplicação do padrão de projeto Template Method
+- [X] Entender aplicação do padrão de projeto Factory
 - [ ] Criar documentação do trabalho
 - [ ] Criar arquivo de requirements
-- [ ] Entender aplicação do padrão de projeto Factory
+
 ### Sugestões:
 1. Provavelmente os padrões de projeto serão implementados a partir da criação de um arquivo.py específico para cada um, contendo suas respectivas funcionalidades
   
@@ -32,15 +32,16 @@
 - [X] Atualizar inserção de usuário no banco de dados
 - [X] Corrigir 'Proibido' ao atualizar página index
 - [X] Integrar Visualizar Perfil
-- [ ] Integrar Editar Perfil
+- [X] Integrar Editar Perfil
 - [X] Integrar Relatório de Consumo
 - [X] Integrar Relatório de Produção
 - [X] Integrar Relatório de Integridade
 - [X] Integrar Relatório de Falhas
 - [X] Integrar Projeção Produtiva
-- [ ] Implementar cache para os relatórios
 - [X] Implementar funcionalidade de gerar pdf
 - [X] Aprimorar o cálculo da projeção produtiva
-- [ ] Implementar funcionalidade de notificações
+- [X] Implementar funcionalidade de notificações
 - [X] Generealizar parâmetros das views de releatório para acessar informação do cliente
-- [ ] Mudar tudo relacionado a usuario
+- [ ] Implementar cache para os relatórios
+- [ ] Formatar tela inicial
+
