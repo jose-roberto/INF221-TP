@@ -5,8 +5,8 @@
 - [X] Entender como o front-end comunica com o back-end no Django
 - [X] Entender aplicação do padrão de projeto Proxy
 - [X] Entender aplicação do padrão de projeto Factory
-- [ ] Criar documentação do trabalho
-- [ ] Criar arquivo de requirements
+- [X] Criar documentação do trabalho
+- [X] Criar arquivo de requirements
 
 ### Sugestões:
 1. Provavelmente os padrões de projeto serão implementados a partir da criação de um arquivo.py específico para cada um, contendo suas respectivas funcionalidades

@@ -43,8 +43,8 @@ def proxyView(request):
     cache = CacheRelatorio.objects.filter(usuario=request.user).filter(tipo=tipo).filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
     if len(cache) != 0:
         generator = PDFGenerator()
-        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         
         if tipo == 'Integridade':
             header = ["Data", "Efiencia Placa", "Integridade Placa"]
@@ -87,8 +87,8 @@ def integridyView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Efiencia Placa", "Integridade Placa"]
-        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Integridade", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
@@ -117,8 +117,8 @@ def failureView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Descrição Falha"]
-        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Falhas", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
@@ -155,8 +155,8 @@ def productionView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
@@ -203,8 +203,8 @@ def projectionView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-        data_inicio =  _data_inicio[8:11] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:11] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
+        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
         pdf = generator.create_report(data_proj, "Projeção Produtiva", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
