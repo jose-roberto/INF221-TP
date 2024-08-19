@@ -19,9 +19,7 @@ urlpatterns = [
     path('pages-login', login, name='pages-login'),
     path('logout', logout, name='logout'),    
     
-    '''
-    Urls usadas para debbug do sistema, não utilizadas na versão final.
-    '''
+    ## CRUD usado para testes, não na versão final
 
     # path('create/dados-integridade/', CreateDadosIntegridade.as_view(), name='create-dados-integridade'),
     # path('update/dados-integridade/<int:pk>/', UpdateDadosIntegridade.as_view(), name='update-dados-integridade'),
