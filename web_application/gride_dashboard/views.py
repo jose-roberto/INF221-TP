@@ -151,7 +151,7 @@ def productionView(request):
         for item in filterList:
             value = item.producao_energetica - item.consumo_energetico
             data_list.append([item.data.strftime('%d/%m/%Y'), item.producao_energetica, item.consumo_energetico, 
-                              value, round(value * item.valor_kwh)])
+                              round(value, 2), round(value * item.valor_kwh, 2)])
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
