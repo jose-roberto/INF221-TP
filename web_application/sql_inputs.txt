@@ -1,11 +1,14 @@
 ATENÇÃO AO USAR ESTE CÓDIGO PARA USERS
 -- Inserir empresas na tabela gride_dashboard_usuario 
 INSERT INTO gride_dashboard_usuario (id, cnpj, nome, email, senha, localizacao, telefone) VALUES
-(1, '12345678000195', 'Tech Innovators Ltda', 'contact@techinnovators.com', 'password123', 'Rua das Inovações, 100, São Paulo, SP', '(11) 4002-8922'),
+(1, '12345678000195', 'Tech Innovators Ltda', 'contact@techinnovators.com', '   ', 'Rua das Inovações, 100, São Paulo, SP', '(11) 4002-8922'),
 (2, '98765432000167', 'Solar Solutions Inc.', 'info@solarsolutions.com', 'securepass456', 'Avenida Solar, 200, Rio de Janeiro, RJ', '(21) 3003-9090'),
 (3, '11223344000189', 'Green Energy Partners', 'support@greenenergypartners.com', 'greentech789', 'Praça da Sustentabilidade, 300, Belo Horizonte, MG', '(31) 9888-7766'),
 (4, '55667788000134', 'EcoFriendly Enterprises', 'contact@ecofriendly.com', 'ecopass012', 'Rua Verde, 400, Curitiba, PR', '(41) 9999-4433'),
 (5, '77889900000156', 'Sustainable Power Co.', 'service@sustainablepower.com', 'powerful123', 'Avenida Energia, 500, Porto Alegre, RS', '(51) 3222-1122');
+(6, '78978978900004', 'Energy Innovators', 'contact@energyinnovators.com', 'innovatepass123', 'Rua da Inovação, 900, São Paulo, SP', '(11) 4004-5678'),
+(7, '98798798700005', 'SolarTech Solutions', 'info@solartech.com', 'solartecpass456', 'Avenida Solar, 1000, Rio de Janeiro, RJ', '(21) 3005-6789'),
+(8, '65465465400006', 'EcoPower Enterprises', 'support@ecopower.com', 'ecopowerpass789', 'Praça da Energia, 1100, Belo Horizonte, MG', '(31) 9887-6543');
 
 -- Inserir dados na tabela gride_dashboard_dados_integridade
 INSERT INTO gride_dashboard_dados_integridade (id, usuario_id, data, integridade_placa, eficiencia_placa) VALUES
@@ -88,53 +91,47 @@ INSERT INTO gride_dashboard_dados_desempenho (id, usuario_id, data, producao_ene
 (31, 8, '2023-08-06', 1930.0, 1530.0, 0.57, 480.0, 62.0, 418.0, 145.0, 22.0),
 (32, 8, '2023-08-07', 1935.0, 1535.0, 0.58, 485.0, 64.0, 421.0, 146.0, 23.0);
 
--- Inserir novos usuários na tabela gride_dashboard_usuario
-INSERT INTO gride_dashboard_usuario (id, cnpj, nome, email, senha, localizacao, telefone) VALUES
-(9, '78978978900004', 'Energy Innovators', 'contact@energyinnovators.com', 'innovatepass123', 'Rua da Inovação, 900, São Paulo, SP', '(11) 4004-5678'),
-(10, '98798798700005', 'SolarTech Solutions', 'info@solartech.com', 'solartecpass456', 'Avenida Solar, 1000, Rio de Janeiro, RJ', '(21) 3005-6789'),
-(11, '65465465400006', 'EcoPower Enterprises', 'support@ecopower.com', 'ecopowerpass789', 'Praça da Energia, 1100, Belo Horizonte, MG', '(31) 9887-6543');
-
 -- Inserir dados na tabela gride_dashboard_dados_integridade
 INSERT INTO gride_dashboard_dados_integridade (id, usuario_id, data, integridade_placa, eficiencia_placa) VALUES
-(33, 9, CURRENT_TIMESTAMP, 95.0, 97.5),
-(34, 9, CURRENT_TIMESTAMP, 94.7, 97.2),
-(35, 9, CURRENT_TIMESTAMP, 94.5, 97.0),
-(36, 9, CURRENT_TIMESTAMP, 94.3, 96.8),
-(37, 10, CURRENT_TIMESTAMP, 93.0, 95.5),
-(38, 10, CURRENT_TIMESTAMP, 92.8, 95.3),
-(39, 10, CURRENT_TIMESTAMP, 92.5, 95.0),
-(40, 10, CURRENT_TIMESTAMP, 92.3, 94.8),
-(41, 11, CURRENT_TIMESTAMP, 96.0, 98.5),
-(42, 11, CURRENT_TIMESTAMP, 95.8, 98.3),
-(43, 11, CURRENT_TIMESTAMP, 95.5, 98.0),
-(44, 11, CURRENT_TIMESTAMP, 95.3, 97.8);
+(33, 6, CURRENT_TIMESTAMP, 95.0, 97.5),
+(34, 6 CURRENT_TIMESTAMP, 94.7, 97.2),
+(35, 6, CURRENT_TIMESTAMP, 94.5, 97.0),
+(36, 6, CURRENT_TIMESTAMP, 94.3, 96.8),
+(37, 7, CURRENT_TIMESTAMP, 93.0, 95.5),
+(38, 7, CURRENT_TIMESTAMP, 92.8, 95.3),
+(39, 7, CURRENT_TIMESTAMP, 92.5, 95.0),
+(40, 7, CURRENT_TIMESTAMP, 92.3, 94.8),
+(41, 8, CURRENT_TIMESTAMP, 96.0, 98.5),
+(42, 8, CURRENT_TIMESTAMP, 95.8, 98.3),
+(43, 8, CURRENT_TIMESTAMP, 95.5, 98.0),
+(44, 8, CURRENT_TIMESTAMP, 95.3, 97.8);
 
 -- Inserir dados na tabela gride_dashboard_dados_falhas
 INSERT INTO gride_dashboard_dados_falhas (id, usuario_id, data, falha) VALUES
-(33, 9, CURRENT_TIMESTAMP, 'Inverter overheating.'),
-(34, 9, CURRENT_TIMESTAMP, 'Solar panel efficiency drop.'),
-(35, 9, CURRENT_TIMESTAMP, 'Battery charge issue.'),
-(36, 9, CURRENT_TIMESTAMP, 'Inverter software glitch.'),
-(37, 10, CURRENT_TIMESTAMP, 'Grid connection error.'),
-(38, 10, CURRENT_TIMESTAMP, 'Solar panel shading detected.'),
-(39, 10, CURRENT_TIMESTAMP, 'Inverter cooling failure.'),
-(40, 10, CURRENT_TIMESTAMP, 'Battery discharge problem.'),
-(41, 11, CURRENT_TIMESTAMP, 'Inverter power surge.'),
-(42, 11, CURRENT_TIMESTAMP, 'Solar panel wiring fault.'),
-(43, 11, CURRENT_TIMESTAMP, 'Battery temperature high.'),
-(44, 11, CURRENT_TIMESTAMP, 'Inverter communication failure.');
+(33, 6, CURRENT_TIMESTAMP, 'Inverter overheating.'),
+(34, 6, CURRENT_TIMESTAMP, 'Solar panel efficiency drop.'),
+(35, 6, CURRENT_TIMESTAMP, 'Battery charge issue.'),
+(36, 6, CURRENT_TIMESTAMP, 'Inverter software glitch.'),
+(37, 7, CURRENT_TIMESTAMP, 'Grid connection error.'),
+(38, 7, CURRENT_TIMESTAMP, 'Solar panel shading detected.'),
+(39, 7, CURRENT_TIMESTAMP, 'Inverter cooling failure.'),
+(40, 7, CURRENT_TIMESTAMP, 'Battery discharge problem.'),
+(41, 8, CURRENT_TIMESTAMP, 'Inverter power surge.'),
+(42, 8, CURRENT_TIMESTAMP, 'Solar panel wiring fault.'),
+(43, 8, CURRENT_TIMESTAMP, 'Battery temperature high.'),
+(44, 8, CURRENT_TIMESTAMP, 'Inverter communication failure.');
 
 -- Inserir dados na tabela gride_dashboard_dados_desempenho
 INSERT INTO gride_dashboard_dados_desempenho (id, usuario_id, data, producao_energetica, consumo_energetico, valor_kwh, lucro, prejuizo, margem, tempo_de_operacao, tempo_de_parada) VALUES
-(33, 9, CURRENT_TIMESTAMP, 1620.0, 1320.0, 0.46, 370.0, 38.0, 332.0, 129.0, 12.0),
-(34, 9, CURRENT_TIMESTAMP, 1625.0, 1325.0, 0.47, 375.0, 40.0, 335.0, 130.0, 13.0),
-(35, 9, CURRENT_TIMESTAMP, 1630.0, 1330.0, 0.48, 380.0, 42.0, 338.0, 131.0, 14.0),
-(36, 9, CURRENT_TIMESTAMP, 1635.0, 1335.0, 0.49, 385.0, 44.0, 341.0, 132.0, 15.0),
-(37, 10, CURRENT_TIMESTAMP, 1770.0, 1470.0, 0.51, 420.0, 68.0, 352.0, 136.0, 16.0),
-(38, 10, CURRENT_TIMESTAMP, 1775.0, 1475.0, 0.52, 425.0, 70.0, 355.0, 137.0, 17.0),
-(39, 10, CURRENT_TIMESTAMP, 1780.0, 1480.0, 0.53, 430.0, 72.0, 358.0, 138.0, 18.0),
-(40, 10, CURRENT_TIMESTAMP, 1785.0, 1485.0, 0.54, 435.0, 74.0, 361.0, 139.0, 19.0),
-(41, 11, CURRENT_TIMESTAMP, 1920.0, 1520.0, 0.55, 470.0, 58.0, 412.0, 143.0, 20.0),
-(42, 11, CURRENT_TIMESTAMP, 1925.0, 1525.0, 0.56, 475.0, 60.0, 415.0, 144.0, 21.0),
-(43, 11, CURRENT_TIMESTAMP, 1930.0, 1530.0, 0.57, 480.0, 62.0, 418.0, 145.0, 22.0),
-(44, 11, CURRENT_TIMESTAMP, 1935.0, 1535.0, 0.58, 485.0, 64.0, 421.0, 146.0, 23.0);
+(33, 6, CURRENT_TIMESTAMP, 1620.0, 1320.0, 0.46, 370.0, 38.0, 332.0, 129.0, 12.0),
+(34, 6, CURRENT_TIMESTAMP, 1625.0, 1325.0, 0.47, 375.0, 40.0, 335.0, 130.0, 13.0),
+(35, 6, CURRENT_TIMESTAMP, 1630.0, 1330.0, 0.48, 380.0, 42.0, 338.0, 131.0, 14.0),
+(36, 6, CURRENT_TIMESTAMP, 1635.0, 1335.0, 0.49, 385.0, 44.0, 341.0, 132.0, 15.0),
+(37, 7, CURRENT_TIMESTAMP, 1770.0, 1470.0, 0.51, 420.0, 68.0, 352.0, 136.0, 16.0),
+(38, 7, CURRENT_TIMESTAMP, 1775.0, 1475.0, 0.52, 425.0, 70.0, 355.0, 137.0, 17.0),
+(39, 7, CURRENT_TIMESTAMP, 1780.0, 1480.0, 0.53, 430.0, 72.0, 358.0, 138.0, 18.0),
+(40, 7, CURRENT_TIMESTAMP, 1785.0, 1485.0, 0.54, 435.0, 74.0, 361.0, 139.0, 19.0),
+(41, 8, CURRENT_TIMESTAMP, 1920.0, 1520.0, 0.55, 470.0, 58.0, 412.0, 143.0, 20.0),
+(42, 8, CURRENT_TIMESTAMP, 1925.0, 1525.0, 0.56, 475.0, 60.0, 415.0, 144.0, 21.0),
+(43, 8, CURRENT_TIMESTAMP, 1930.0, 1530.0, 0.57, 480.0, 62.0, 418.0, 145.0, 22.0),
+(44, 8, CURRENT_TIMESTAMP, 1935.0, 1535.0, 0.58, 485.0, 64.0, 421.0, 146.0, 23.0);
