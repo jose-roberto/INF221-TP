@@ -46,3 +46,11 @@
 - [X] Formatar tela inicial
 - [X] Formatar página de contato
 
+## Testes
+- [ ] Testar formulários(login e cadastro)
+- [ ] Testar formulários relatórios
+- [ ] Testar páginas
+- [ ] Testar banco de dados(CRUD)
+- [ ] Testar valor e cobertura dos dados de relatórios e projeção
+- [ ] Testar cache
+- [ ] Testar URLS
