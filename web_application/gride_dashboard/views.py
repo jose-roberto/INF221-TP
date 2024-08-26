@@ -237,7 +237,7 @@ def register(request):
         new_user = User.objects.create_user(username=username, email=email, password=password, first_name=name)
         new_user.save()
         
-        usuario = Usuario(cnpj=username, nome=name, email=email, senha=password, localizacao=location, telefone=phone)
+        usuario = Usuario(cnpj=username, nome=name, email=email, localizacao=location, telefone=phone)
         usuario.save()
         
         return redirect('index')

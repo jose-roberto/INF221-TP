@@ -45,9 +45,11 @@
 - [X] Implementar cache para os relatórios
 - [X] Formatar tela inicial
 - [X] Formatar página de contato
+- [X] Remover campo 'senha' da classe 'Usuario' (vazamento de dados)
+- [X] Corrigir urls (nao eram reconhecidas em tests.py sem '/' no final)
 
 ## Testes
-- [ ] Testar formulários(login e cadastro)
+- [X] Testar formulários(login e cadastro)
 - [ ] Testar formulários relatórios
 - [ ] Testar páginas
 - [ ] Testar banco de dados(CRUD)

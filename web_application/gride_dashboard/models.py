@@ -6,7 +6,6 @@ class Usuario(models.Model):
     cnpj = models.CharField(max_length=14)
     nome = models.CharField(max_length=100)
     email = models.EmailField()
-    senha = models.CharField(max_length=50)
     localizacao = models.CharField(max_length=200)
     telefone = models.CharField(max_length=30)
     def __str__(self):

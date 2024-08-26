@@ -3,21 +3,21 @@ from .views import *
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('index', IndexView.as_view(), name='index'),
-    path('homepage', HomepageView.as_view(), name='homepage'),
-    path('report-failure', failureView, name='report-failure'),
-    path('report-integridy', integridyView, name='report-integridy'),
-    path('report-production', productionView, name='report-production'),
-    path('projection', projectionView, name='projection'),
-    path('proxy-cache', proxyView, name='proxy-cache'),
-    path('users-profile', ProfileView.as_view(), name='profile'),
-    path('pages-contact', ContactView.as_view(), name='pages-contact'),
+    path('index/', IndexView.as_view(), name='index'),
+    path('homepage/', HomepageView.as_view(), name='homepage'),
+    path('report-failure/', failureView, name='report-failure'),
+    path('report-integridy/', integridyView, name='report-integridy'),
+    path('report-production/', productionView, name='report-production'),
+    path('projection/', projectionView, name='projection'),
+    path('proxy-cache/', proxyView, name='proxy-cache'),
+    path('users-profile/', ProfileView.as_view(), name='profile'),
+    path('pages-contact/', ContactView.as_view(), name='pages-contact'),
 
-    path('read_user', read_user, name='read_user'),
-    path('update_user', update_user, name='update_user'),    
-    path('pages-register', register, name='pages-register'),
-    path('pages-login', login, name='pages-login'),
-    path('logout', logout, name='logout'),    
+    path('read_user/', read_user, name='read_user'),
+    path('update_user/', update_user, name='update_user'),    
+    path('pages-register/', register, name='pages-register'),
+    path('pages-login/', login, name='pages-login'),
+    path('logout/', logout, name='logout'),    
     
     ## CRUD usado para testes, não na versão final
 
