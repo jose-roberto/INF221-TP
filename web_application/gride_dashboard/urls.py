@@ -10,9 +10,9 @@ urlpatterns = [
     path('report-production/', productionView, name='report-production'),
     path('projection/', projectionView, name='projection'),
     path('proxy-cache/', proxyView, name='proxy-cache'),
-    path('users-profile/', ProfileView.as_view(), name='profile'),
     path('pages-contact/', ContactView.as_view(), name='pages-contact'),
-
+    
+    path('users-profile/', read_user, name='profile'),
     path('read_user/', read_user, name='read_user'),
     path('update_user/', update_user, name='update_user'),    
     path('pages-register/', register, name='pages-register'),

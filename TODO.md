@@ -46,12 +46,15 @@
 - [X] Formatar tela inicial
 - [X] Formatar página de contato
 - [X] Remover campo 'senha' da classe 'Usuario' (vazamento de dados)
-- [X] Corrigir urls (nao eram reconhecidas em tests.py sem '/' no final)
+- [X] Corrigir URLs (nao eram reconhecidas em tests.py sem '/' no final)
+- [X] Remover CNPJ de 'update_user'
+- [X] Corrigir URL 'users-profile', que nao exibia dados (agora é uma duplicata de 'read_user')
+- [] Corrigir: '/update_user/' crasha se inserido na URL
 
 ## Testes
 - [X] Testar formulários(login e cadastro)
 - [ ] Testar formulários relatórios
-- [ ] Testar páginas
+- [X] Testar páginas
 - [ ] Testar banco de dados(CRUD)
 - [ ] Testar valor e cobertura dos dados de relatórios e projeção
 - [ ] Testar cache

@@ -25,9 +25,6 @@ class IndexView(TemplateView):
 class HomepageView(LoginRequiredMixin, TemplateView):
     login_url = 'pages-login'
     template_name='homepage.html'
-class ProfileView(LoginRequiredMixin, TemplateView):
-    login_url = 'pages-login'
-    template_name='users-profile.html'
 class ContactView(LoginRequiredMixin, TemplateView):
     login_url = 'pages-login'
     template_name='pages-contact.html'

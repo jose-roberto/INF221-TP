@@ -1,7 +1,7 @@
 ATENÇÃO AO USAR ESTE CÓDIGO PARA USERS
 -- Inserir empresas na tabela gride_dashboard_usuario 
 INSERT INTO gride_dashboard_usuario (id, cnpj, nome, email, senha, localizacao, telefone) VALUES
-(1, '12345678000195', 'Tech Innovators Ltda', 'contact@techinnovators.com', '   ', 'Rua das Inovações, 100, São Paulo, SP', '(11) 4002-8922'),
+(1, '12345678000195', 'Tech Innovators Ltda', 'contact@techinnovators.com', 'password123', 'Rua das Inovações, 100, São Paulo, SP', '(11) 4002-8922'),
 (2, '98765432000167', 'Solar Solutions Inc.', 'info@solarsolutions.com', 'securepass456', 'Avenida Solar, 200, Rio de Janeiro, RJ', '(21) 3003-9090'),
 (3, '11223344000189', 'Green Energy Partners', 'support@greenenergypartners.com', 'greentech789', 'Praça da Sustentabilidade, 300, Belo Horizonte, MG', '(31) 9888-7766'),
 (4, '55667788000134', 'EcoFriendly Enterprises', 'contact@ecofriendly.com', 'ecopass012', 'Rua Verde, 400, Curitiba, PR', '(41) 9999-4433'),
