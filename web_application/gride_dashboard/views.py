@@ -18,6 +18,7 @@ from gride_dashboard.pdf.pdf_generator import PDFGenerator
 from gride_dashboard.projecao_produtiva.projecao_produtiva import ProjecaoProdutiva
 from numpy import asarray
 from datetime import datetime
+from django.http import Http404
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -71,7 +72,8 @@ def proxyView(request):
             elif tipo == 'Projecão Produtiva':
                 return projectionView(request)
     else:
-        return HttpResponse("Invalid request method", status=405)
+        raise Http404("Page not found")
+
 
         
 def getDados(user, tipo, _data_inicio, _data_termino):

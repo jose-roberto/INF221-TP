@@ -383,5 +383,12 @@ class LogoutURLTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/index/')  #redirect to /pages-login/
 
+class Custom404Test(TestCase):
+    def setUp(self):
+        self.client = Client()
 
+    def test_custom_404_page(self):
+        response = self.client.get('/non-existent-url/')
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, '404.html')
         

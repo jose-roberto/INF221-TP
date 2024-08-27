@@ -1,5 +1,12 @@
 from django.urls import path
 from .views import *
+from django.conf.urls import handler404
+from django.shortcuts import render
+
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'), #
@@ -41,3 +48,6 @@ urlpatterns = [
     # path('delete/cache-relatorio/<int:pk>/', DeleteCacheRelatorio.as_view(), name='delete-cache-relatorio'),
     # path('list/cache-relatorio/', ListCacheRelatorio.as_view(), name='list-cache-relatorio'),
 ]
+
+
+handler404 = custom_404

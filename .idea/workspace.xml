@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1a5e2d5-c738-4378-a9c9-2615ba22701d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/web_application/templates/404.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_application/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/web_application/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_application/gride_dashboard/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_application/gride_dashboard/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_application/gride_dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_application/gride_dashboard/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web_application/gride_dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_application/gride_dashboard/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_application/web_application/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_application/web_application/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -35,6 +40,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "Django tests.Test: gride_dashboard.tests.executor": "Run",
     "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -66,7 +72,7 @@
       <updated>1723160051652</updated>
       <workItem from="1723160053890" duration="3245000" />
       <workItem from="1723227421568" duration="1177000" />
-      <workItem from="1724798607036" duration="1611000" />
+      <workItem from="1724798607036" duration="2801000" />
     </task>
     <servers />
   </component>
@@ -74,6 +80,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/INF221_TP$Test__gride_dashboard_tests.coverage" NAME="Test: gride_dashboard.tests Coverage Results" MODIFIED="1724799860424" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/INF221_TP$Test__gride_dashboard_tests.coverage" NAME="Test: gride_dashboard.tests Coverage Results" MODIFIED="1724801412180" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
