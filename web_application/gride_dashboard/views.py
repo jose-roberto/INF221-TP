@@ -305,8 +305,8 @@ def update_user(request):
         usuario = Usuario.objects.filter(cnpj=User.objects.filter(username=user.username)[0].username)
 
         usuario.update(nome = request.POST.get('name'), email = request.POST.get('email'), telefone = request.POST.get('phone'), localizacao = request.POST.get('location'))
-        
-        return redirect('read_user')
+
+    return redirect('read_user')
 
 class CreateDadosIntegridade(CreateView):
     model = DadosIntegridade
