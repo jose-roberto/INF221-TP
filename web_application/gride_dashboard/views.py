@@ -54,7 +54,7 @@ def proxyView(request):
             pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
         elif tipo == 'Projecão Produtiva':
             header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-            pdf = generator.create_report(cache[0].dados_relatorio, "Projeção Produtiva", header, (data_inicio, data_termino), request.user.username)
+            pdf = generator.create_report(cache[0].dados_relatorio, "Projecão Produtiva", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
@@ -207,8 +207,8 @@ def projectionView(request):
         _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0, 0)  
         str_data_termino = request.POST.get('data_termino')
         _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_termino[8:10]), 23, 59, 59, 0)
-        crescimento = request.POST.get('crescimento')
-        crescimento = int(crescimento)/100
+        str_crescimento = request.POST.get('crescimento')
+        crescimento = float(str_crescimento)/100
 
         filterList = getDadosProj(user, str_data_inicio, str_data_termino)
         
@@ -224,7 +224,7 @@ def projectionView(request):
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
         data_inicio =  str_data_inicio[8:10] + "/" + str_data_inicio[5:7] + "/" + str_data_inicio[0:4]
         data_termino =  str_data_termino[8:10] + "/" + str_data_termino[5:7] + "/" + str_data_termino[0:4]
-        pdf = generator.create_report(data_proj, "Projeção Produtiva", header, (data_inicio, data_termino), request.user.username)
+        pdf = generator.create_report(data_proj, "Projecão Produtiva", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'

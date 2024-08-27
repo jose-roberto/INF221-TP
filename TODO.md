@@ -49,8 +49,8 @@
 - [X] Corrigir URLs (nao eram reconhecidas em tests.py sem '/' no final)
 - [X] Remover CNPJ de 'update_user'
 - [X] Corrigir URL 'users-profile', que nao exibia dados (agora é uma duplicata de 'read_user')
-- [] Corrigir: '/update_user/' crasha se inserido na URL
 - [X] Reimplementar proxy
+- [] Corrigir: '/update_user/' crasha se inserido na URL
 
 ## Testes
 - [X] Testar formulários(login e cadastro)
