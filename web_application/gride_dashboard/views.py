@@ -96,9 +96,13 @@ def integridyView(request):
     else:
         user = request.user
         str_data_inicio = request.POST.get('data_inicio')
+        print(str_data_inicio)
         _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0)  
+        print(_data_inicio)
         str_data_termino = request.POST.get('data_termino')
-        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_inicio[8:10]), 23, 59, 59)
+        print(str_data_termino)
+        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_termino[8:10]), 23, 59, 59)
+        print(_data_termino)
         filterList = getDados(user, 'Integridade', _data_inicio, _data_termino)
         
 
@@ -132,7 +136,7 @@ def failureView(request):
         str_data_inicio = request.POST.get('data_inicio')
         _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0) 
         str_data_termino = request.POST.get('data_termino')
-        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_inicio[8:10]), 23, 59, 59)
+        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_termino[8:10]), 23, 59, 59)
         filterList = getDados(user, 'Falhas', _data_inicio, _data_termino)
         
         data_list = []
@@ -171,7 +175,7 @@ def productionView(request):
         str_data_inicio = request.POST.get('data_inicio')
         _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0)  
         str_data_termino = request.POST.get('data_termino')
-        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_inicio[8:10]), 23, 59, 59)
+        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_termino[8:10]), 23, 59, 59)
         filterList = getDados(user, 'Produção', _data_inicio, _data_termino)
         
         data_list = []
