@@ -1,5 +1,7 @@
+from typing import Any
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # Create your models here.
 class Usuario(models.Model):
@@ -13,25 +15,22 @@ class Usuario(models.Model):
     
 class Dados(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    data = models.DateTimeField(auto_now_add=True)
+    data = models.DateTimeField()
     class Meta:
         abstract = True
+    def save(self, *args, **kwargs):
+        if not self.data:
+            self.data = datetime.now()
+        super().save(*args, **kwargs)
 
 class DadosIntegridade(Dados):
     integridade_placa = models.FloatField()
     eficiencia_placa = models.FloatField()
-    def __init__(self, usuario, integridade_placa, eficiencia_placa):
-        self.usuario = usuario
-        self.integridade_placa = integridade_placa
-        self.eficiencia_placa = eficiencia_placa
     def __str__(self):
         return "{} ({})".format(self.usuario.first_name,self.data)
     
 class DadosFalha(Dados):
     falha = models.TextField()
-    def __init__(self, usuario, falha):
-        self.usuario = usuario
-        self.falha = falha
     def __str__(self):
         return "{} ({})".format(self.usuario.first_name,self.data)
     
@@ -44,16 +43,6 @@ class DadosDesempenho(Dados):
     margem = models.FloatField()
     tempo_de_operacao = models.FloatField()
     tempo_de_parada = models.FloatField()
-    def __init__(self, usuario, producao_energetica, consumo_energetico, valor_kwh, lucro, prejuizo, margem, tempo_de_operacao, tempo_de_parada):
-        self.usuario = usuario
-        self.producao_energetica = producao_energetica
-        self.consumo_energetico = consumo_energetico
-        self.valor_kwh = valor_kwh
-        self.lucro = lucro
-        self.prejuizo = prejuizo
-        self.margem = margem
-        self.tempo_de_operacao = tempo_de_operacao
-        self.tempo_de_parada = tempo_de_parada
     def __str__(self):
         return "{} ({})".format(self.usuario.first_name,self.data)
     
@@ -61,18 +50,16 @@ class DadosDesempenho(Dados):
 class CacheRelatorio(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     tipo = models.CharField(max_length=11)
-    data_criacao = models.DateTimeField(auto_now_add=True)
+    data_criacao = models.DateTimeField()
     dados_relatorio = models.JSONField()
     inicio_periodo = models.DateTimeField()
     fim_periodo = models.DateTimeField()
-    def __init__(self, usuario, tipo, dados_relatorio, inicio_periodo, fim_periodo):
-        self.usuario = usuario
-        self.tipo = tipo
-        self.dados_relatorio = dados_relatorio
-        self.inicio_periodo = inicio_periodo
-        self.fim_periodo = fim_periodo
     def __str__(self):
-        return "{} ({}) ({})".format(self.usuario.first_name,self.tipo,self.data)
+        return "{} ({}) ({})".format(self.usuario.first_name,self.tipo,self.data_criacao)
+    def save(self, *args, **kwargs):
+        if not self.data_criacao:
+            self.data_criacao = datetime.now()
+        super().save(*args, **kwargs)
     # class Meta:
     #     abstract = True
     

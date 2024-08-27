@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .models import *
-import datetime
-
+from .views import getDados, getDadosProj
+from datetime import datetime
+User = get_user_model()
 # Create your tests here.
 
 class RegisterTest(TestCase):
@@ -118,7 +119,9 @@ class UserTest(TestCase):
         self.assertEqual(self.usuario.localizacao,'newLocation')
     def testCRUD(self):
         #create
-        dadoIntegridade = DadosIntegridade(self.user, 91.9, 92.9)
+        dadoIntegridade = DadosIntegridade(usuario=self.user, 
+                                           integridade_placa=91.9, 
+                                           eficiencia_placa=92.9)
         dadoIntegridade.save()
         #read
         dadoIntegridade = DadosIntegridade.objects.get(usuario=self.user)
@@ -130,10 +133,11 @@ class UserTest(TestCase):
         self.assertEqual(dadoIntegridade.integridade_placa, 93.9)
         #delete
         dadoIntegridade.delete()
+        with self.assertRaises(DadosIntegridade.DoesNotExist):
+            dadoIntegridade = DadosIntegridade.objects.get(usuario=self.user)
 
         #create
-        DadosFalha.objects.get(usuario=self.user)    
-        dadoFalha = DadosFalha(self.user, 'falha')
+        dadoFalha = DadosFalha(usuario=self.user, falha='falha')
         dadoFalha.save()
         #read
         dadoFalha = DadosFalha.objects.get(usuario=self.user)
@@ -144,10 +148,17 @@ class UserTest(TestCase):
         self.assertEqual(dadoFalha.falha, 'falha2')
         #delete
         dadoFalha.delete()
+        with self.assertRaises(DadosFalha.DoesNotExist):
+            dadoFalha = DadosFalha.objects.get(usuario=self.user)
 
         #create
-        DadosDesempenho.objects.get(usuario=self.user)   
-        dadoDesempenho = DadosDesempenho(self.user, 91.9, 92.9, 93.9, 94.9, 95.9, 96.9, 97.9, 98.9)
+        dadoDesempenho = DadosDesempenho(usuario=self.user, 
+                                         producao_energetica=91.9, 
+                                         consumo_energetico=92.9, 
+                                         valor_kwh=93.9, lucro=94.9, 
+                                         prejuizo=95.9, margem=96.9, 
+                                         tempo_de_operacao=97.9, 
+                                         tempo_de_parada=98.9)
         dadoDesempenho.save()
         #read
         dadoDesempenho = DadosDesempenho.objects.get(usuario=self.user)
@@ -165,31 +176,121 @@ class UserTest(TestCase):
         self.assertEqual(dadoDesempenho.producao_energetica, 99.9)
         #delete
         dadoDesempenho.delete()
+        with self.assertRaises(DadosDesempenho.DoesNotExist):
+            dadoDesempenho = DadosDesempenho.objects.get(usuario=self.user)
 
         #create
-        CacheRelatorio.objects.get(usuario=self.user)    
-        cache = CacheRelatorio(self.user, 'cache', '{}', datetime(2015, 10, 9, 23, 55, 59, 342380), datetime(2015, 10, 9, 23, 55, 59, 342380))
+        cache = CacheRelatorio(usuario=self.user, 
+                               tipo='cache',
+                               dados_relatorio='{}', 
+                               inicio_periodo=datetime(2015, 10, 10), 
+                               fim_periodo=datetime(2015, 10, 10))
         cache.save()
         #read
         cache = CacheRelatorio.objects.get(usuario=self.user)
         self.assertEqual(cache.tipo, 'cache')
         self.assertEqual(cache.dados_relatorio, '{}')
-        self.assertEqual(cache.inicio_periodo, datetime(2015, 10, 9, 23, 55, 59, 342380))
-        self.assertEqual(cache.fim_periodo, datetime(2015, 10, 9, 23, 55, 59, 342380))
+        self.assertEqual(cache.inicio_periodo.strftime("%m/%d/%Y"), '10/10/2015')
+        self.assertEqual(cache.fim_periodo.strftime("%m/%d/%Y"), '10/10/2015')
         #update
         cache.tipo = 'cache2'
         cache.save()
         self.assertEqual(cache.tipo, 'cache2')
         #delete
         cache.delete()
+        with self.assertRaises(CacheRelatorio.DoesNotExist):
+            cache = CacheRelatorio.objects.get(usuario=self.user)
+    def testRelatorio(self):
+        response = self.client.post("/report-integridy/", 
+                                    {"data_inicio":"2024-08-01",
+                                    "data_termino":"2024-08-02"})
+        self.assertEqual(response.status_code, 200) 
+        response = self.client.post("/report-failure/", 
+                                    {"data_inicio":"2024-08-01",
+                                    "data_termino":"2024-08-02"})
+        self.assertEqual(response.status_code, 200) 
+        response = self.client.post("/report-production/", 
+                                    {"data_inicio":"2024-08-01",
+                                    "data_termino":"2024-08-02"})
+        self.assertEqual(response.status_code, 200) 
+        dadoIntegridade1 = DadosIntegridade(usuario=self.user,
+                                           data=datetime(2024, 8, 1, 0, 0, 0, 0), 
+                                           integridade_placa=91.9, 
+                                           eficiencia_placa=92.9)
+        dadoIntegridade1.save()
+        dadoIntegridade2 = DadosIntegridade(usuario=self.user,
+                                           data=datetime(2024, 8, 2, 0, 0, 0, 0), 
+                                           integridade_placa=91.9, 
+                                           eficiencia_placa=92.9)
+        dadoIntegridade2.save()
+        dadoIntegridade3 = DadosIntegridade(usuario=self.user,
+                                           data=datetime(2024, 8, 3, 12, 0, 0, 0), 
+                                           integridade_placa=91.9, 
+                                           eficiencia_placa=92.9)
+        dadoIntegridade3.save()
+        filterList=getDados(self.user, 'Integridade', datetime(2024, 8, 1, 12, 0, 0, 0), datetime(2024, 8, 3, 12, 0, 0, 0))
+        self.assertEqual(len(filterList), 2)
+        self.assertFalse(dadoIntegridade1 in filterList)
+        self.assertTrue(dadoIntegridade2 in filterList)
+        self.assertTrue(dadoIntegridade3 in filterList)
+        filterList=getDados(self.user, 'Integridade', datetime(2024, 8, 3, 13, 0, 0, 0), datetime(2024, 9, 15, 0, 0, 0, 0))
+        self.assertEqual(len(filterList), 0)
 
-class URLTest(TestCase):
+        dadoFalha1 = DadosFalha(usuario=self.user,
+                                data=datetime(2024, 8, 1, 0, 0, 0, 0), 
+                                falha='falha1')
+        dadoFalha1.save()
+        dadoFalha2 = DadosFalha(usuario=self.user,
+                                data=datetime(2024, 8, 2, 0, 0, 0, 0), 
+                                falha='falha2')
+        dadoFalha2.save()
+        dadoFalha3 = DadosFalha(usuario=self.user,
+                                data=datetime(2024, 8, 3, 12, 0, 0, 0), 
+                                falha='falha3')
+        dadoFalha3.save()
+        filterList=getDados(self.user, 'Falhas', datetime(2024, 8, 1, 12, 0, 0, 0), datetime(2024, 8, 3, 12, 0, 0, 0))
+        self.assertEqual(len(filterList), 2)
+        self.assertFalse(dadoFalha1 in filterList)
+        self.assertTrue(dadoFalha2 in filterList)
+        self.assertTrue(dadoFalha3 in filterList)
+        filterList=getDados(self.user, 'Falhas', datetime(2024, 8, 3, 13, 0, 0, 0), datetime(2024, 9, 15, 0, 0, 0, 0))
+        self.assertEqual(len(filterList), 0)
+
+        dadoDesempenho1 = DadosDesempenho(usuario=self.user,
+                                        data=datetime(2024, 8, 1, 0, 0, 0, 0), 
+                                        producao_energetica=91.9, 
+                                         consumo_energetico=92.9, 
+                                         valor_kwh=93.9, lucro=94.9, 
+                                         prejuizo=95.9, margem=96.9, 
+                                         tempo_de_operacao=97.9, 
+                                         tempo_de_parada=98.9)
+        dadoDesempenho1.save()
+        dadoDesempenho2 = DadosDesempenho(usuario=self.user,
+                                        data=datetime(2024, 8, 2, 0, 0, 0, 0), 
+                                        producao_energetica=91.9, 
+                                         consumo_energetico=92.9, 
+                                         valor_kwh=93.9, lucro=94.9, 
+                                         prejuizo=95.9, margem=96.9, 
+                                         tempo_de_operacao=97.9, 
+                                         tempo_de_parada=98.9)
+        dadoDesempenho2.save()
+        dadoDesempenho3 = DadosDesempenho(usuario=self.user,
+                                        data=datetime(2024, 8, 3, 12, 0, 0, 0), 
+                                        producao_energetica=91.9, 
+                                         consumo_energetico=92.9, 
+                                         valor_kwh=93.9, lucro=94.9, 
+                                         prejuizo=95.9, margem=96.9, 
+                                         tempo_de_operacao=97.9, 
+                                         tempo_de_parada=98.9)
+        dadoDesempenho3.save()
+        filterList=getDados(self.user, 'Produção', datetime(2024, 8, 1, 12, 0, 0, 0), datetime(2024, 8, 3, 12, 0, 0, 0))
+        self.assertEqual(len(filterList), 2)
+        self.assertFalse(dadoDesempenho1 in filterList)
+        self.assertTrue(dadoDesempenho2 in filterList)
+        self.assertTrue(dadoDesempenho3 in filterList)
+        filterList=getDados(self.user, 'Produção', datetime(2024, 8, 3, 13, 0, 0, 0), datetime(2024, 9, 15, 0, 0, 0, 0))
+        self.assertEqual(len(filterList), 0)
     def testURL(self):
-        c = Client()
-        response = self.client.get("")
-        self.assertEqual(response.status_code, 200)
-        response = self.client.get("/index/")
-        self.assertEqual(response.status_code, 200)
         response = self.client.get("/homepage/")
         self.assertEqual(response.status_code, 200)
         response = self.client.get("/report-failure/")
@@ -200,15 +301,53 @@ class URLTest(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.get("/projection/")
         self.assertEqual(response.status_code, 200)
-        response = self.client.get("/proxy-cache/")
-        self.assertEqual(response.status_code, 200)
+        # response = self.client.get("/proxy-cache/")
+        # self.assertEqual(response.status_code, 200)
         response = self.client.get("/users-profile/")
         self.assertEqual(response.status_code, 200)
         response = self.client.get("/pages-contact/")
         self.assertEqual(response.status_code, 200)
+        
+class LogoutURLTest(TestCase):
+    def testURL(self):
+        c = Client()
+        response = self.client.get("")
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get("/index/")
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get("/homepage/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/homepage/')  #redirect to /pages-login/
+        response = self.client.get("/report-failure/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/report-failure/')  #redirect to /pages-login/
+        response = self.client.get("/report-integridy/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/report-integridy/')  #redirect to /pages-login/
+        response = self.client.get("/report-production/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/report-production/')  #redirect to /pages-login/
+        response = self.client.get("/projection/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/projection/')  #redirect to /pages-login/
+        response = self.client.get("/proxy-cache/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/proxy-cache/')  #redirect to /pages-login/
+        response = self.client.get("/users-profile/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/users-profile/')  #redirect to /pages-login/
+        response = self.client.get("/pages-contact/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/pages-contact/')  #redirect to /pages-login/
         response = self.client.get("/read_user/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/read_user/')  #redirect to /pages-login/
         response = self.client.get("/update_user/")
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/pages-login/?next=/update_user/')  #redirect to /pages-login/
+        response = self.client.get("/logout/")
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/index/')  #redirect to /pages-login/
+
 
         

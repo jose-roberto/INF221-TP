@@ -1,7 +1,6 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as django_login
@@ -18,6 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from gride_dashboard.pdf.pdf_generator import PDFGenerator
 from gride_dashboard.projecao_produtiva.projecao_produtiva import ProjecaoProdutiva
 from numpy import asarray
+from datetime import datetime
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -68,24 +68,48 @@ def proxyView(request):
             return productionView(request)
         elif tipo == 'Projecão Produtiva':
             return projectionView(request)
-
+        
+def getDados(user, tipo, _data_inicio, _data_termino):
+    match tipo:
+        case 'Integridade':
+            return DadosIntegridade.objects.filter(usuario=user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
+        case 'Falhas':
+            return DadosFalha.objects.filter(usuario=user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
+        case 'Produção':
+            return DadosDesempenho.objects.filter(usuario=user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
+def getDadosProj(user, str_data_inicio, str_data_termino):
+    mes_inicio = int(str_data_inicio[5:7])
+    dia_inicio = int(str_data_inicio[8:10])
+    mes_termino = int(str_data_termino[5:7])
+    dia_termino = int(str_data_termino[8:10])
+    return DadosDesempenho.objects.filter(
+        usuario=user,
+        data__month__gte=mes_inicio,
+        data__month__lte=mes_termino,
+        data__day__gte=dia_inicio,
+        data__day__lte=dia_termino
+    )
 @login_required
 def integridyView(request):
     if request.method == "GET":
         return render(request,'report-integridy.html')
     else:
-        _data_inicio = request.POST.get('data_inicio')
-        _data_termino = request.POST.get('data_termino')
-        filterList = DadosIntegridade.objects.filter(usuario=request.user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
+        user = request.user
+        str_data_inicio = request.POST.get('data_inicio')
+        _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0)  
+        str_data_termino = request.POST.get('data_termino')
+        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_inicio[8:10]), 23, 59, 59)
+        filterList = getDados(user, 'Integridade', _data_inicio, _data_termino)
         
+
         data_list = []
         for item in filterList:
             data_list.append([item.data.strftime('%d/%m/%Y'), item.eficiencia_placa, item.integridade_placa])
         
         generator = PDFGenerator()
-        header = ["Data", "Efiencia Placa", "Integridade Placa"]
-        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        header = ["Data", "Eficiencia Placa", "Integridade Placa"]
+        data_inicio =  str_data_inicio[8:10] + "/" + str_data_inicio[5:7] + "/" + str_data_inicio[0:4]
+        data_termino =  str_data_termino[8:10] + "/" + str_data_termino[5:7] + "/" + str_data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Integridade", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
@@ -104,9 +128,12 @@ def failureView(request):
     if request.method == "GET":
         return render(request,'report-failure.html')
     else:
-        _data_inicio = request.POST.get('data_inicio')
-        _data_termino = request.POST.get('data_termino')
-        filterList = DadosFalha.objects.filter(usuario=request.user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
+        user = request.user
+        str_data_inicio = request.POST.get('data_inicio')
+        _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0) 
+        str_data_termino = request.POST.get('data_termino')
+        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_inicio[8:10]), 23, 59, 59)
+        filterList = getDados(user, 'Falhas', _data_inicio, _data_termino)
         
         data_list = []
         for item in filterList:
@@ -114,8 +141,8 @@ def failureView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Descrição Falha"]
-        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  str_data_inicio[8:10] + "/" + str_data_inicio[5:7] + "/" + str_data_inicio[0:4]
+        data_termino =  str_data_termino[8:10] + "/" + str_data_termino[5:7] + "/" + str_data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Falhas", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
@@ -140,9 +167,12 @@ def productionView(request):
     if request.method == "GET":
         return render(request,'report-production.html')
     else:
-        _data_inicio = request.POST.get('data_inicio')
-        _data_termino = request.POST.get('data_termino')
-        filterList = DadosDesempenho.objects.filter(usuario=request.user).filter(data__gte=_data_inicio).filter(data__lte=_data_termino)
+        user = request.user
+        str_data_inicio = request.POST.get('data_inicio')
+        _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0)  
+        str_data_termino = request.POST.get('data_termino')
+        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_inicio[8:10]), 23, 59, 59)
+        filterList = getDados(user, 'Produção', _data_inicio, _data_termino)
         
         data_list = []
         for item in filterList:
@@ -152,8 +182,8 @@ def productionView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  str_data_inicio[8:10] + "/" + str_data_inicio[5:7] + "/" + str_data_inicio[0:4]
+        data_termino =  str_data_termino[8:10] + "/" + str_data_termino[5:7] + "/" + str_data_termino[0:4]
         pdf = generator.create_report(data_list, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
@@ -172,23 +202,13 @@ def projectionView(request):
     if request.method == "GET":
         return render(request,'projection.html')
     else:
-        _data_inicio = request.POST.get('data_inicio')
-        _data_termino = request.POST.get('data_termino')
+        user = request.user
+        str_data_inicio = request.POST.get('data_inicio')
+        str_data_termino = request.POST.get('data_termino')
         crescimento = request.POST.get('crescimento')
         crescimento = int(crescimento)/100
-        
-        mes_inicio = int(_data_inicio[5:7])
-        dia_inicio = int(_data_inicio[8:10])
-        mes_termino = int(_data_termino[5:7])
-        dia_termino = int(_data_termino[8:10])
 
-        filterList = DadosDesempenho.objects.filter(
-            usuario=request.user,
-            data__month__gte=mes_inicio,
-            data__month__lte=mes_termino,
-            data__day__gte=dia_inicio,
-            data__day__lte=dia_termino
-        )
+        filterList = getDadosProj(user, str_data_inicio, str_data_termino)
         
         proj = ProjecaoProdutiva(crescimento)
         
@@ -200,8 +220,8 @@ def projectionView(request):
         
         generator = PDFGenerator()
         header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-        data_inicio =  _data_inicio[8:10] + "/" + _data_inicio[5:7] + "/" + _data_inicio[0:4]
-        data_termino =  _data_termino[8:10] + "/" + _data_termino[5:7] + "/" + _data_termino[0:4]
+        data_inicio =  str_data_inicio[8:10] + "/" + str_data_inicio[5:7] + "/" + str_data_inicio[0:4]
+        data_termino =  str_data_termino[8:10] + "/" + str_data_termino[5:7] + "/" + str_data_termino[0:4]
         pdf = generator.create_report(data_proj, "Projeção Produtiva", header, (data_inicio, data_termino), request.user.username)
         
         response = HttpResponse(pdf, content_type='application/pdf')
