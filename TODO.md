@@ -50,7 +50,7 @@
 - [X] Remover CNPJ de 'update_user'
 - [X] Corrigir URL 'users-profile', que nao exibia dados (agora é uma duplicata de 'read_user')
 - [] Corrigir: '/update_user/' crasha se inserido na URL
-- [] Reimplementar proxy
+- [X] Reimplementar proxy
 
 ## Testes
 - [X] Testar formulários(login e cadastro)
@@ -59,5 +59,5 @@
 - [X] Testar banco de dados(CRUD)
 - [X] Testar valor e cobertura dos dados de relatórios e projeção
 - [X] Testar URLS
-- [ ] Testar cache
-- [ ] Testar projeção produtiva e seu relatório
+- [X] Testar cache
+- [X] Testar projeção produtiva e seu relatório

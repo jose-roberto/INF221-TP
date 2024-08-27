@@ -204,15 +204,33 @@ class UserTest(TestCase):
         response = self.client.post("/report-integridy/", 
                                     {"data_inicio":"2024-08-01",
                                     "data_termino":"2024-08-02"})
-        self.assertEqual(response.status_code, 200) 
+        self.assertEqual(response.status_code, 200)
+        ## TESTA CACHE
+        _data_inicio = datetime(2024, 8, 1, 0, 0, 0, 0)
+        _data_termino = datetime(2024, 8, 2, 23, 59, 59, 0)
+        filterList = CacheRelatorio.objects.filter(usuario=self.user).filter(tipo='Integridade').filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
+        self.assertGreater(len(filterList), 0)
+        ##
         response = self.client.post("/report-failure/", 
                                     {"data_inicio":"2024-08-01",
                                     "data_termino":"2024-08-02"})
-        self.assertEqual(response.status_code, 200) 
+        self.assertEqual(response.status_code, 200)
+        ## TESTA CACHE 
+        _data_inicio = datetime(2024, 8, 1, 0, 0, 0, 0)
+        _data_termino = datetime(2024, 8, 2, 23, 59, 59, 0)
+        filterList = CacheRelatorio.objects.filter(usuario=self.user).filter(tipo='Falhas').filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
+        self.assertGreater(len(filterList), 0)
+        ##
         response = self.client.post("/report-production/", 
                                     {"data_inicio":"2024-08-01",
                                     "data_termino":"2024-08-02"})
         self.assertEqual(response.status_code, 200) 
+        ## TESTA CACHE
+        _data_inicio = datetime(2024, 8, 1, 0, 0, 0, 0)
+        _data_termino = datetime(2024, 8, 2, 23, 59, 59, 0)
+        filterList = CacheRelatorio.objects.filter(usuario=self.user).filter(tipo='Produção').filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
+        self.assertGreater(len(filterList), 0)
+        ##
         dadoIntegridade1 = DadosIntegridade(usuario=self.user,
                                            data=datetime(2024, 8, 1, 0, 0, 0, 0), 
                                            integridade_placa=91.9, 
