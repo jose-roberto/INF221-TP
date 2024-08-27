@@ -31,43 +31,48 @@ class ContactView(LoginRequiredMixin, TemplateView):
 
 @login_required
 def proxyView(request):
-    user = request.user
-    str_data_inicio = request.POST.get('data_inicio')
-    _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0, 0)  
-    str_data_termino = request.POST.get('data_termino')
-    _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_termino[8:10]), 23, 59, 59, 0)
-    tipo = request.POST.get('tipo')
-    cache = CacheRelatorio.objects.filter(usuario=request.user).filter(tipo=tipo).filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
-    if len(cache) != 0:
-        generator = PDFGenerator()
-        data_inicio =  str_data_inicio[8:10] + "/" + str_data_inicio[5:7] + "/" + str_data_inicio[0:4]
-        data_termino =  str_data_termino[8:10] + "/" + str_data_termino[5:7] + "/" + str_data_termino[0:4]
-        
-        if tipo == 'Integridade':
-            header = ["Data", "Efiencia Placa", "Integridade Placa"]
-            pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Integridade", header, (data_inicio, data_termino), user.username)
-        elif tipo == 'Falhas':
-            header = ["Data", "Descrição Falha"]
-            pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Falhas", header, (data_inicio, data_termino), request.user.username)
-        elif tipo == 'Produção':
-            header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-            pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
-        elif tipo == 'Projecão Produtiva':
-            header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
-            pdf = generator.create_report(cache[0].dados_relatorio, "Projecão Produtiva", header, (data_inicio, data_termino), request.user.username)
-        
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
-        return response
+    if request.method == "POST":
+        user = request.user
+        str_data_inicio = request.POST.get('data_inicio')
+        _data_inicio = datetime(int(str_data_inicio[0:4]), int(str_data_inicio[5:7]), int(str_data_inicio[8:10]), 0, 0, 0, 0)
+        str_data_termino = request.POST.get('data_termino')
+        _data_termino = datetime(int(str_data_termino[0:4]), int(str_data_termino[5:7]), int(str_data_termino[8:10]), 23, 59, 59, 0)
+        tipo = request.POST.get('tipo')
+
+        cache = CacheRelatorio.objects.filter(usuario=request.user).filter(tipo=tipo).filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
+        if len(cache) != 0:
+            generator = PDFGenerator()
+            data_inicio =  str_data_inicio[8:10] + "/" + str_data_inicio[5:7] + "/" + str_data_inicio[0:4]
+            data_termino =  str_data_termino[8:10] + "/" + str_data_termino[5:7] + "/" + str_data_termino[0:4]
+
+            if tipo == 'Integridade':
+                header = ["Data", "Efiencia Placa", "Integridade Placa"]
+                pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Integridade", header, (data_inicio, data_termino), user.username)
+            elif tipo == 'Falhas':
+                header = ["Data", "Descrição Falha"]
+                pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Falhas", header, (data_inicio, data_termino), request.user.username)
+            elif tipo == 'Produção':
+                header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
+                pdf = generator.create_report(cache[0].dados_relatorio, "Relatório de Produção", header, (data_inicio, data_termino), request.user.username)
+            elif tipo == 'Projecão Produtiva':
+                header = ["Data", "Producao(kw)", "Consumo(kw)", "Lucro(kw)", "Lucro($)"]
+                pdf = generator.create_report(cache[0].dados_relatorio, "Projecão Produtiva", header, (data_inicio, data_termino), request.user.username)
+
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'inline; filename="relatorio.pdf"'
+            return response
+        else:
+            if tipo == 'Integridade':
+                return integridyView(request)
+            elif tipo == 'Falhas':
+                return failureView(request)
+            elif tipo == 'Produção':
+                return productionView(request)
+            elif tipo == 'Projecão Produtiva':
+                return projectionView(request)
     else:
-        if tipo == 'Integridade':
-            return integridyView(request)
-        elif tipo == 'Falhas':
-            return failureView(request)
-        elif tipo == 'Produção':
-            return productionView(request)
-        elif tipo == 'Projecão Produtiva':
-            return projectionView(request)
+        return HttpResponse("Invalid request method", status=405)
+
         
 def getDados(user, tipo, _data_inicio, _data_termino):
     match tipo:

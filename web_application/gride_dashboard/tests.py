@@ -331,8 +331,12 @@ class UserTest(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.get("/projection/")
         self.assertEqual(response.status_code, 200)
-        # response = self.client.get("/proxy-cache/")
-        # self.assertEqual(response.status_code, 200)
+        response = self.client.post("/proxy-cache/", {
+            'data_inicio': '2023-01-01',
+            'data_termino': '2023-01-02',
+            'tipo': 'Integridade'
+        })
+        self.assertEqual(response.status_code, 200)
         response = self.client.get("/users-profile/")
         self.assertEqual(response.status_code, 200)
         response = self.client.get("/pages-contact/")
