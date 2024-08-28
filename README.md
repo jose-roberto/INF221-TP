@@ -9,6 +9,5 @@ Trabalho prático da disciplina de Engenharia de Software - INF221
 5. Victor Afonso Teixeira Santos - 108212
 
 ## Sobre o projeto:
-- [Documentação]()
-- [Tarefas](TODO.md)
+- [Documentação](Instruções para execução.pdf)
 - [Materiais de apoio](REFs.md)
