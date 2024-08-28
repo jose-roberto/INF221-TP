@@ -201,14 +201,20 @@ class UserTest(TestCase):
         with self.assertRaises(CacheRelatorio.DoesNotExist):
             cache = CacheRelatorio.objects.get(usuario=self.user)
     def testRelatorio(self):
+        #faz requisição do tipo POST para o endpoint
         response = self.client.post("/report-integridy/", 
                                     {"data_inicio":"2024-08-01",
                                     "data_termino":"2024-08-02"})
+        #verifica se a resposta do endpoint é 200
         self.assertEqual(response.status_code, 200)
         ## TESTA CACHE
+        # Define a data de início para o filtro de cache, com o horário ajustado para 00:00:00.000
         _data_inicio = datetime(2024, 8, 1, 0, 0, 0, 0)
+        # Define a data de término para o filtro de cache, com o horário ajustado para 23:59:59.999
         _data_termino = datetime(2024, 8, 2, 23, 59, 59, 0)
+        # Filtra objetos CacheRelatorio para o usuário atual, tipo 'Integridade', e intervalo de tempo especificado
         filterList = CacheRelatorio.objects.filter(usuario=self.user).filter(tipo='Integridade').filter(inicio_periodo=_data_inicio).filter(fim_periodo=_data_termino)
+        # Verifica se o filtro retornou algum item, garantindo que o cache foi armazenado
         self.assertGreater(len(filterList), 0)
         ##
         response = self.client.post("/report-failure/", 
@@ -235,7 +241,7 @@ class UserTest(TestCase):
                                     {"data_inicio":"2024-08-01",
                                     "data_termino":"2024-08-03",
                                     "crescimento":10})
-        self.assertEqual(response.status_code, 200) 
+        self.assertEqual(response.status_code, 200)
         ## TESTA CACHE
         _data_inicio = datetime(2024, 8, 1, 0, 0, 0, 0)
         _data_termino = datetime(2024, 8, 3, 23, 59, 59, 0)
@@ -243,6 +249,8 @@ class UserTest(TestCase):
         self.assertGreater(len(filterList), 0)
         ##
 
+
+        # Cria um objeto DadosIntegridade com dados específicos e salva no banco de dados
         dadoIntegridade1 = DadosIntegridade(usuario=self.user,
                                            data=datetime(2024, 8, 1, 0, 0, 0, 0), 
                                            integridade_placa=91.9, 
@@ -258,13 +266,22 @@ class UserTest(TestCase):
                                            integridade_placa=91.9, 
                                            eficiencia_placa=92.9)
         dadoIntegridade3.save()
+        # Chama a função getDados para buscar objetos DadosIntegridade dentro de um intervalo de tempo especificado
         filterList=getDados(self.user, 'Integridade', datetime(2024, 8, 1, 12, 0, 0, 0), datetime(2024, 8, 3, 12, 0, 0, 0))
+        # Verifica se o tamanho da lista filtrada é 2
         self.assertEqual(len(filterList), 2)
+        # Verifica se dadoIntegridade1 não está na lista filtrada
         self.assertFalse(dadoIntegridade1 in filterList)
         self.assertTrue(dadoIntegridade2 in filterList)
         self.assertTrue(dadoIntegridade3 in filterList)
+
+        # Chama a função getDados para buscar objetos DadosIntegridade fora do intervalo de tempo especificado
         filterList=getDados(self.user, 'Integridade', datetime(2024, 8, 3, 13, 0, 0, 0), datetime(2024, 9, 15, 0, 0, 0, 0))
+        # Garante que nao tem nada no intervalo
         self.assertEqual(len(filterList), 0)
+
+    ##
+
 
         dadoFalha1 = DadosFalha(usuario=self.user,
                                 data=datetime(2024, 8, 1, 0, 0, 0, 0), 
@@ -285,6 +302,8 @@ class UserTest(TestCase):
         self.assertTrue(dadoFalha3 in filterList)
         filterList=getDados(self.user, 'Falhas', datetime(2024, 8, 3, 13, 0, 0, 0), datetime(2024, 9, 15, 0, 0, 0, 0))
         self.assertEqual(len(filterList), 0)
+
+    ##
 
         dadoDesempenho1 = DadosDesempenho(usuario=self.user,
                                         data=datetime(2024, 8, 1, 0, 0, 0, 0), 
@@ -320,23 +339,35 @@ class UserTest(TestCase):
         self.assertTrue(dadoDesempenho3 in filterList)
         filterList=getDados(self.user, 'Produção', datetime(2024, 8, 3, 13, 0, 0, 0), datetime(2024, 9, 15, 0, 0, 0, 0))
         self.assertEqual(len(filterList), 0)
+
+
     def testURL(self):
+        # Faz uma requisição GET para o endpoint "/homepage/"
         response = self.client.get("/homepage/")
+        # Verifica se o status da resposta é 200, indicando que a página foi carregada com sucesso
         self.assertEqual(response.status_code, 200)
+
         response = self.client.get("/report-failure/")
         self.assertEqual(response.status_code, 200)
+
         response = self.client.get("/report-integridy/")
         self.assertEqual(response.status_code, 200)
+
         response = self.client.get("/report-production/")
         self.assertEqual(response.status_code, 200)
+
         response = self.client.get("/projection/")
         self.assertEqual(response.status_code, 200)
+
+        # Faz uma requisição POST para o endpoint "/proxy-cache/", passando um dicionário com data de início, data de término e tipo
         response = self.client.post("/proxy-cache/", {
             'data_inicio': '2023-01-01',
             'data_termino': '2023-01-02',
             'tipo': 'Integridade'
         })
+        # Verifica se o status da resposta é 200, indicando que a requisição POST foi bem-sucedida
         self.assertEqual(response.status_code, 200)
+
         response = self.client.get("/users-profile/")
         self.assertEqual(response.status_code, 200)
         response = self.client.get("/pages-contact/")
@@ -344,41 +375,55 @@ class UserTest(TestCase):
         
 class LogoutURLTest(TestCase):
     def testURL(self):
+        # Cria uma instância do cliente de teste Django
+        #nao loga
         c = Client()
         response = self.client.get("")
         self.assertEqual(response.status_code, 200)
+
         response = self.client.get("/index/")
         self.assertEqual(response.status_code, 200)
+
         response = self.client.get("/homepage/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/homepage/')  #redirect to /pages-login/
+
         response = self.client.get("/report-failure/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/report-failure/')  #redirect to /pages-login/
+
         response = self.client.get("/report-integridy/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/report-integridy/')  #redirect to /pages-login/
+
         response = self.client.get("/report-production/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/report-production/')  #redirect to /pages-login/
+
         response = self.client.get("/projection/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/projection/')  #redirect to /pages-login/
+
         response = self.client.get("/proxy-cache/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/proxy-cache/')  #redirect to /pages-login/
+
         response = self.client.get("/users-profile/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/users-profile/')  #redirect to /pages-login/
+
         response = self.client.get("/pages-contact/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/pages-contact/')  #redirect to /pages-login/
+
         response = self.client.get("/read_user/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/read_user/')  #redirect to /pages-login/
+
         response = self.client.get("/update_user/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/pages-login/?next=/update_user/')  #redirect to /pages-login/
+
         response = self.client.get("/logout/")
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/index/')  #redirect to /pages-login/
