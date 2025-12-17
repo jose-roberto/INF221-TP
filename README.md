@@ -1,5 +1,5 @@
 # INF221-TP
-Trabalho prático da disciplina de Engenharia de Software - INF221
+Trabalho prático da disciplina INF221 - Engenharia de Software.
 
 ## Alunos:
 1. André Nunes de Alcântara - 108186
